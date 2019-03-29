@@ -71,7 +71,7 @@ Cypress.Commands.add("requestAdminApi", (method, url, requestData = {}) => {
         if (response.body) {
             const responseBodyObj = response.body ? JSON.parse(response.body): response;
 
-            if (Array.isArray(responseBodyObj.data) && responseBodyObj.data.length === 1) {
+            if (Array.isArray(responseBodyObj.data) && responseBodyObj.data.length <= 1) {
                 return responseBodyObj.data[0];
             }
             return responseBodyObj.data;
@@ -105,15 +105,18 @@ Cypress.Commands.add("createViaAdminApi", (data) => {
  * @param {Object} data - Necessary data for the API request
  */
 Cypress.Commands.add("searchViaAdminApi", (data) => {
+    const filters = {
+        filter: [{
+            field: data.field,
+            type: 'equals',
+            value: data.value
+        }]
+    };
+
     return cy.requestAdminApi(
         'POST',
-        `/api/v1/search/${data.endpoint}`, {
-            filter: [{
-                field: data.field,
-                type: 'equals',
-                value: data.value
-            }]
-        }
+        `/api/v1/search/${data.endpoint}`,
+        filters
     ).then((responseData) => {
         return responseData;
     });

@@ -14,13 +14,13 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+import './commands/commands'
 
 // Import api commands.js using ES2015 syntax:
-import './service/api-commands'
+import './commands/api-commands'
 
 // Import fixture commands.js using ES2015 syntax:
-import './service/fixtures/fixture-commands'
+import './commands/fixture-commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
