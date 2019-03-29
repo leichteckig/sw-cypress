@@ -1,3 +1,9 @@
+/**
+ * Authenticate towards the Shopware API
+ * @memberOf Cypress.Chainable#
+ * @name authenticate
+ * @function
+ */
 Cypress.Commands.add("authenticate", () => {
     return cy.request(
         'POST',
@@ -38,7 +44,6 @@ Cypress.Commands.add("loginViaApi", () => {
         });
     });
 });
-
 
 /**
  * Handling API requests

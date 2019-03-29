@@ -5,5 +5,7 @@
   "price": {
     "net": 42,
     "gross": 64
-  }
+  },
+  "taxId": "4d4ab9aef36c4d0aa7f9d8be920cba8f",
+  "manufacturerId": "1cfcc4576c6149b195560db97899861f"
 }

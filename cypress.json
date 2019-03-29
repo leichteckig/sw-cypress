@@ -2,5 +2,7 @@
   "viewportHeight": 1080,
   "viewportWidth": 1920,
   "baseUrl": "http://localhost:8000",
-  "watchForFileChanges": false
+  "watchForFileChanges": false,
+  "requestTimeout": 10000,
+  "defaultCommandTimeout": 10000
 }
