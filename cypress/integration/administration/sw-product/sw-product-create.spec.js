@@ -42,6 +42,13 @@ describe('Product: Create product with image', function () {
         cy.get('.sw-product-detail__save-action').click();
         cy.get('.sw-loader').should('not.exist');
         cy.awaitAndCheckNotification('Product "Product with file upload image" has been saved successfully.');
+
+        cy.get('a.smart-bar__back-btn').click();
+        cy.get('.sw-data-grid__row--0').reload();
+        cy.get('.sw-data-grid__row--0 .sw-data-grid__cell--name').contains('Product with file upload image');
+        cy.get('input.sw-search-bar__input').typeAndCheckSearchField('Product with file upload image');
+        cy.get('.sw-data-grid__row--0 .sw-data-grid__cell--name').contains('Product with file upload image');
+        cy.get('.sw-page__smart-bar-amount').contains('(1)');
     });
     afterEach(function () {
         return cy.removeFixtureByName('MainCategory', 'category').then(() => {

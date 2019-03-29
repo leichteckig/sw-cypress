@@ -75,28 +75,19 @@ Cypress.Commands.add('typeAndCheck', {
 });
 
 /**
- * Uploads a file to an input
+ * Ticks a checkbox element and checks if it is behaving accordingly
  * @memberOf Cypress.Chainable#
- * @name uploadFile
+ * @name tickAndCheckCheckbox
  * @function
- * @param {String} fileUrl - The file url to upload
- * @param {String} type - content type of the uploaded file
+ * @param {Boolean} checked - The value to type
  */
-Cypress.Commands.add('uploadFile', (selector, fileUrl, type = '') => {
-    return cy.get(selector).then(subject => {
-        return cy.fixture(fileUrl, 'base64')
-            .then(Cypress.Blob.base64StringToBlob)
-            .then(blob => {
-                const el = subject[0];
-                const nameSegments = fileUrl.split('/');
-                const name = nameSegments[nameSegments.length - 1];
-                const testFile = new File([blob], name, {type});
-                const dataTransfer = new DataTransfer();
-                dataTransfer.items.add(testFile);
-                el.files = dataTransfer.files;
-                return subject
-            })
-    })
+Cypress.Commands.add('tickAndCheckCheckbox', {
+    prevSubject: 'element'
+}, (subject, checked) => {
+    cy.wrap(subject).click(checked);
+    checked ?
+        cy.wrap(subject).should('have.attr', 'checked')
+        : cy.wrap(subject).should('not.have.attr', 'checked');
 });
 
 /**
@@ -153,6 +144,46 @@ Cypress.Commands.add('typeSwSelectAndCheck', {
 });
 
 /**
+ * Types in the global search field and verify search terms in url
+ * @memberOf Cypress.Chainable#
+ * @name typeAndCheckSearchField
+ * @function
+ * @param {String} value - The value to type
+ */
+Cypress.Commands.add('typeAndCheckSearchField', {
+    prevSubject: 'element'
+}, (subject, value) => {
+    cy.wrap(subject).type(value).invoke('val').should('eq', value);
+
+    cy.url().should('include', encodeURI(value));
+});
+
+/**
+ * Uploads a file to an input
+ * @memberOf Cypress.Chainable#
+ * @name uploadFile
+ * @function
+ * @param {String} fileUrl - The file url to upload
+ * @param {String} type - content type of the uploaded file
+ */
+Cypress.Commands.add('uploadFile', (selector, fileUrl, type = '') => {
+    return cy.get(selector).then(subject => {
+        return cy.fixture(fileUrl, 'base64')
+            .then(Cypress.Blob.base64StringToBlob)
+            .then(blob => {
+                const el = subject[0];
+                const nameSegments = fileUrl.split('/');
+                const name = nameSegments[nameSegments.length - 1];
+                const testFile = new File([blob], name, {type});
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(testFile);
+                el.files = dataTransfer.files;
+                return subject
+            })
+    })
+});
+
+/**
  * Wait for a notification to appear and check its message
  * @memberOf Cypress.Chainable#
  * @name awaitAndCheckNotification
@@ -171,4 +202,33 @@ Cypress.Commands.add('awaitAndCheckNotification', (message, options = {
     if (options.collapse) {
         cy.get(`${notification} .sw-alert__close`).click().should('not.exist');
     }
+});
+
+/**
+ * Click context menu in order to cause a desired action
+ * @memberOf Cypress.Chainable#
+ * @name clickContextMenuItem
+ * @function
+ * @param {String} menuButtonSelector - The message to look for
+ * @param {String} menuOpenSelector - The message to look for
+ * @param {Object} [scope=null] - Options concerning the notification
+ */
+Cypress.Commands.add('clickContextMenuItem', (menuButtonSelector, menuOpenSelector, scope = null) => {
+    const contextMenuCssSelector = '.sw-context-menu';
+    const activeContextButtonCssSelector = '.is--active';
+
+    if (scope != null) {
+        cy.get(scope).should('be.visible');
+        cy.get(`${scope} ${menuOpenSelector}`).click();
+
+        if (scope.includes('row')) {
+            cy.get(`${menuOpenSelector}${activeContextButtonCssSelector}`).should('be.visible');
+        }
+    } else {
+        cy.get(menuOpenSelector).should('be.visible').click();
+    }
+
+    cy.get(contextMenuCssSelector).should('be.visible');
+    cy.get(menuButtonSelector).click();
+    cy.get(contextMenuCssSelector).should('not.exist');
 });

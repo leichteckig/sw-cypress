@@ -4,7 +4,7 @@
  * @name createDefaultFixture
  * @function
  * @param {String} endpoint - API endpoint for the request
- * @param {Object} [options={}] - Options concerning deletion [options={}]
+ * @param {Object} [options={}] - Options concerning deletion
  */
 Cypress.Commands.add("createDefaultFixture", (endpoint) => {
     return cy.fixture(endpoint).then((json) => {
@@ -38,16 +38,48 @@ Cypress.Commands.add("removeFixtureByName", (name, endpoint, options = {}) => {
     })
 });
 
-
 /**
  * Search for an existing entity using Shopware API at the given endpoint
  * @memberOf Cypress.Chainable#
- * @name removeFixtureByName
+ * @name createProductFixture
  * @function
- * @param {String} name - Name of the fixture to be deleted
  * @param {String} endpoint - API endpoint for the request
- * @param {Object} [options={}] - Options concerning deletion [options={}]
+ * @param {Object} [options={}] - Options concerning creation
  */
-Cypress.Commands.add("createProductFixture", (name, endpoint, options = {}) => {
+Cypress.Commands.add("createProductFixture", (endpoint, options = {}) => {
+    let json = {};
+    let manufacturerId = '';
 
+
+    return cy.fixture(endpoint).then((result) => {
+        json = result;
+
+        return cy.searchViaAdminApi({
+            endpoint: 'product-manufacturer',
+            data: {
+                field: 'name',
+                value: options.manufacturerName
+            }
+        })
+    }).then((result) => {
+        manufacturerId = result.id;
+
+        return cy.searchViaAdminApi({
+            endpoint: 'tax',
+            data: {
+                field: 'tax.name',
+                value: options.taxName
+            }
+        });
+    }).then((result) => {
+        return Object.assign({
+            taxId: result[3].id,
+            manufacturerId: manufacturerId
+        }, json);
+    }).then((result) => {
+        return cy.createViaAdminApi({
+            endpoint: endpoint,
+            data: result
+        })
+    })
 });
