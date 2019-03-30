@@ -70,7 +70,7 @@ Cypress.Commands.add("requestAdminApi", (method, url, requestData = {}) => {
         return cy.request(requestConfig);
     }).then((response) => {
         if (response.body) {
-            const responseBodyObj = response.body ? JSON.parse(response.body): response;
+            const responseBodyObj = response.body ? JSON.parse(response.body) : response;
 
             if (Array.isArray(responseBodyObj.data) && responseBodyObj.data.length <= 1) {
                 return responseBodyObj.data[0];

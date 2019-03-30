@@ -65,8 +65,6 @@ Cypress.Commands.add("createProductFixture", (endpoint, options = {}) => {
             }
         })
     }).then((result) => {
-        console.log('result :', result);
-        console.log('result.id :', result.id);
         manufacturerId = result.id;
 
         return cy.searchViaAdminApi({
@@ -75,10 +73,8 @@ Cypress.Commands.add("createProductFixture", (endpoint, options = {}) => {
                 field: 'name',
                 value: options.taxName
             }
-        });
+        })
     }).then((result) => {
-        console.log('result :', result);
-
         return Object.assign({
             taxId: result.id,
             manufacturerId: manufacturerId
