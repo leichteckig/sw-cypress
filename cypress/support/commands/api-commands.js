@@ -83,8 +83,6 @@ Cypress.Commands.add("requestAdminApi", (method, url, requestData = {}) => {
 
 Cypress.Commands.add("searchRequestAdminApi", (method, url, requestData = {}) => {
     return cy.authenticate().then((result) => {
-        console.log('requestData :', requestData);
-
         const requestConfig = {
             headers: {
                 Accept: 'application/vnd.api+json',
@@ -101,9 +99,6 @@ Cypress.Commands.add("searchRequestAdminApi", (method, url, requestData = {}) =>
         return cy.request(requestConfig);
     }).then((response) => {
         if (response.body) {
-            console.log('response.body :', response.body);
-
-            //const responseBodyObj = response.body ? JSON.parse(response.body): response;
             const responseBodyObj = response;
 
             if (Array.isArray(responseBodyObj.data) && responseBodyObj.data.length <= 1) {
@@ -140,8 +135,6 @@ Cypress.Commands.add("createViaAdminApi", (data) => {
  * @param {Object} data - Necessary data for the API request
  */
 Cypress.Commands.add("searchViaAdminApi", (data) => {
-    console.log('data :', data.data);
-
     const filters = {
         filter: [{
             field: data.data.field,
@@ -155,8 +148,6 @@ Cypress.Commands.add("searchViaAdminApi", (data) => {
         `/api/v1/search/${data.endpoint}`,
         filters
     ).then((responseData) => {
-        console.log('responseData :', responseData);
-
         return responseData.body.data[0];
     });
 });
