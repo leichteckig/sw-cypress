@@ -1,4 +1,4 @@
-describe('Example for creating a manufacturer and doing some inline editing', function () {
+describe('Create a manufacturer', function () {
     beforeEach(function () {
         cy.loginViaApi();
     });

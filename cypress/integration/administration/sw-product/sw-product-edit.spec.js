@@ -47,9 +47,9 @@ describe('Product: Edit product in various ways', function () {
         cy.get('input[name=sw-field--product-name]').typeAndCheck('Sauerkraut');
 
         cy.get('.sw-product-detail__save-action').click();
-        cy.get('.sw-loader').should('not.exist');
         cy.awaitAndCheckNotification('Product "Sauerkraut" has been saved successfully.');
         Cypress.env('updated', true);
+        cy.get('.sw-loader').should('not.exist');
 
         cy.get('a.smart-bar__back-btn').click();
         cy.get('.sw-data-grid__row--0').reload();

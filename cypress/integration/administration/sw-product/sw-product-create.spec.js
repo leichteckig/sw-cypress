@@ -62,11 +62,10 @@ describe('Product: Create product with image', function () {
             if (Cypress.env('updatedSecondTime')) {
                 return cy.removeFixtureByName('sw-login-background', 'media', {
                     identifier: 'fileName',
-                    fixtureFlag: 'secondDirtyFixture'
+                    fixtureFlag: 'updatedSecondTime'
                 });
             }
             return Promise.resolve();
-
         })
     });
 });
