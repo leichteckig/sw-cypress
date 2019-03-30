@@ -45,6 +45,7 @@ Cypress.Commands.add("loginViaApi", () => {
     });
 });
 
+
 /**
  * Handling API requests
  * @memberOf Cypress.Chainable#
@@ -80,6 +81,40 @@ Cypress.Commands.add("requestAdminApi", (method, url, requestData = {}) => {
     });
 });
 
+Cypress.Commands.add("searchRequestAdminApi", (method, url, requestData = {}) => {
+    return cy.authenticate().then((result) => {
+        console.log('requestData :', requestData);
+
+        const requestConfig = {
+            headers: {
+                Accept: 'application/vnd.api+json',
+                Authorization: `Bearer ${result.access}`,
+                'Content-Type': 'application/json'
+            },
+            method: method,
+            url: url,
+            qs: {
+                response: true
+            },
+            body: requestData
+        };
+        return cy.request(requestConfig);
+    }).then((response) => {
+        if (response.body) {
+            console.log('response.body :', response.body);
+
+            //const responseBodyObj = response.body ? JSON.parse(response.body): response;
+            const responseBodyObj = response;
+
+            if (Array.isArray(responseBodyObj.data) && responseBodyObj.data.length <= 1) {
+                return responseBodyObj.data[0];
+            }
+            return responseBodyObj.data;
+        }
+        return response;
+    });
+});
+
 /**
  * Creates an entity using Shopware API at the given endpoint
  * @memberOf Cypress.Chainable#
@@ -105,20 +140,24 @@ Cypress.Commands.add("createViaAdminApi", (data) => {
  * @param {Object} data - Necessary data for the API request
  */
 Cypress.Commands.add("searchViaAdminApi", (data) => {
+    console.log('data :', data.data);
+
     const filters = {
         filter: [{
-            field: data.field,
+            field: data.data.field,
             type: 'equals',
-            value: data.value
+            value: data.data.value
         }]
     };
 
-    return cy.requestAdminApi(
+    return cy.searchRequestAdminApi(
         'POST',
         `/api/v1/search/${data.endpoint}`,
         filters
     ).then((responseData) => {
-        return responseData;
+        console.log('responseData :', responseData);
+
+        return responseData.body.data[0];
     });
 });
 
