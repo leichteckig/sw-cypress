@@ -1,6 +1,6 @@
 import ManufacturerPageObject from "../../../support/pages/module/sw-manufacturer.page-object";
 
-describe('Create a manufacturer', function () {
+describe('Manufacturer: Create a new one', function () {
     beforeEach(function () {
         cy.loginViaApi();
     });

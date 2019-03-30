@@ -1,6 +1,6 @@
 import ManufacturerPageObject from "../../../support/pages/module/sw-manufacturer.page-object";
 
-describe('Delete a manufacturer in various ways', function () {
+describe('Manufacturer: Delete in various ways', function () {
     beforeEach(function () {
         return cy.loginViaApi().then(() => {
             return cy.createDefaultFixture('product-manufacturer')

@@ -1,6 +1,6 @@
 import ProductPageObject from "../../../support/pages/module/sw-product.page-object";
 
-describe('Product: Create product with image', function () {
+describe('Product: Create with image', function () {
     beforeEach(function () {
         return cy.loginViaApi().then(() => {
             return cy.createDefaultFixture('category')

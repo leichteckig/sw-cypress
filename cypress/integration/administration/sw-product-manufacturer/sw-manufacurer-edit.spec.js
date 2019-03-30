@@ -2,7 +2,7 @@ import ManufacturerPageObject from "../../../support/pages/module/sw-manufacture
 
 let mediaUploaded = false;
 
-describe('Edit a manufacturer in various ways', function () {
+describe('Manufacturer: Edit in various ways', function () {
     beforeEach(function () {
         return cy.loginViaApi().then(() => {
             return cy.createDefaultFixture('product-manufacturer')

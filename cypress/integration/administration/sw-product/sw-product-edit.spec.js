@@ -1,6 +1,6 @@
 import ProductPageObject from "../../../support/pages/module/sw-product.page-object";
 
-describe('Product: Edit product in various ways', function () {
+describe('Product: Edit in various ways', function () {
     beforeEach(function () {
         return cy.loginViaApi().then(() => {
             return cy.createProductFixture('product', {
