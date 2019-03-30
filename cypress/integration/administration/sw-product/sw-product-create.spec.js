@@ -37,11 +37,13 @@ describe('Product: Create product with image', function () {
         cy.get('input[name=sw-field--url]').type('http://localhost:8000/bundles/administration/static/fixtures/sw-login-background.png');
         cy.get('.sw-media-url-form__submit-button').click();
         cy.awaitAndCheckNotification('File has been saved successfully.');
-        cy.get('.sw-media-preview__item').invoke('attr', 'src').should('contain', 'sw-login-background');
+        Cypress.env('updated', true);
 
+        cy.get('.sw-media-preview__item').invoke('attr', 'src').should('contain', 'sw-login-background');
         cy.get('.sw-product-detail__save-action').click();
         cy.get('.sw-loader').should('not.exist');
         cy.awaitAndCheckNotification('Product "Product with file upload image" has been saved successfully.');
+        Cypress.env('updatedSecondTime', true);
 
         cy.get('a.smart-bar__back-btn').click();
         cy.get('.sw-data-grid__row--0').reload();
@@ -52,11 +54,19 @@ describe('Product: Create product with image', function () {
     });
     afterEach(function () {
         return cy.removeFixtureByName('MainCategory', 'category').then(() => {
-            return cy.removeFixtureByName('Product with file upload image', 'product')
+             if (Cypress.env('updated')) {
+                 return cy.removeFixtureByName('Product with file upload image', 'product');
+             }
+             return Promise.resolve();
         }).then(() => {
-            return cy.removeFixtureByName('sw-login-background', 'media', {
-                identifier: 'fileName'
-            })
+            if (Cypress.env('updatedSecondTime')) {
+                return cy.removeFixtureByName('sw-login-background', 'media', {
+                    identifier: 'fileName',
+                    fixtureFlag: 'secondDirtyFixture'
+                });
+            }
+            return Promise.resolve();
+
         })
     });
 });

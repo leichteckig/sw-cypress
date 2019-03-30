@@ -27,6 +27,8 @@ Cypress.Commands.add("createDefaultFixture", (endpoint) => {
  * @param {Object} [options={}] - Options concerning deletion [options={}]
  */
 Cypress.Commands.add("removeFixtureByName", (name, endpoint, options = {}) => {
+    const fixtureFlag = options.fixtureFlag ? options.fixtureFlag : 'updated';
+
     return cy.searchViaAdminApi({
         endpoint: endpoint,
         data: {
@@ -34,6 +36,7 @@ Cypress.Commands.add("removeFixtureByName", (name, endpoint, options = {}) => {
             value: name
         }
     }).then((result) => {
+        Cypress.env(fixtureFlag, false);
         return cy.deleteViaAdminApi(endpoint, result.id)
     })
 });

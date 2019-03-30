@@ -4,5 +4,7 @@
   "baseUrl": "http://localhost:8000",
   "watchForFileChanges": false,
   "requestTimeout": 10000,
-  "defaultCommandTimeout": 10000
+  "defaultCommandTimeout": 10000,
+  "updated": false,
+  "updatedSecondTime": false
 }
