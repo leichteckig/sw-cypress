@@ -1,4 +1,4 @@
-describe('Product: Edit product in various ways', function () {
+describe('Product: Delete product in various ways', function () {
     beforeEach(function () {
         return cy.loginViaApi().then(() => {
             return cy.createProductFixture('product', {
