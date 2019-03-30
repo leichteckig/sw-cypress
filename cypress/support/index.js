@@ -23,4 +23,6 @@ import './commands/api-commands'
 import './commands/fixture-commands'
 
 // Alternatively you can use CommonJS syntax:
-// require('./commands')
+require('./pages/sw-general.page-object');
+require('./pages/module/sw-product.page-object');
+require('./pages/module/sw-manufacturer.page-object');

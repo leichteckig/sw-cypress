@@ -36,7 +36,6 @@ Cypress.Commands.add("removeFixtureByName", (name, endpoint, options = {}) => {
             value: name
         }
     }).then((result) => {
-        Cypress.env(fixtureFlag, false);
         return cy.deleteViaAdminApi(endpoint, result.id)
     })
 });
