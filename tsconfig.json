@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "outDir": "./dist",
     "allowJs": true,
     "baseUrl": "./node_modules",
     "types": [
@@ -8,5 +9,9 @@
   },
   "include": [
     "**/*.*"
+  ],
+  "exclude": [
+    "./node_modules",
+    "./dist"
   ]
 }
