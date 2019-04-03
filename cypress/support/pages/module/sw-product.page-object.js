@@ -1,6 +1,6 @@
 const GeneralPageObject = require('../sw-general.page-object');
 
-export default class extends GeneralPageObject {
+export default class ProductPageObject extends GeneralPageObject {
     constructor() {
         super();
 
