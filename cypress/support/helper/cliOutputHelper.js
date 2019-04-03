@@ -21,7 +21,7 @@ function createNewLine() {
     createLog();
 }
 
-function createLog(type, ...message) {
+function createLog(type, message) {
     let symbol = (type === 'success') ? '• ✓' : '';
     symbol = (type === 'error') ? '• ✖' : symbol;
 
