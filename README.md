@@ -12,4 +12,4 @@ At first, clone this project in a folder you like. After that, you just need to 
 * [Cypress documentation](https://docs.cypress.io/guides/overview/why-cypress.html)
 * [Shopware platform documentation](https://docs.shopware.com/en/shopware-platform-dev-en)
 * [Shopware development template](https://github.com/shopware/development)
-* [Shopware platform project](https://github.com/shopware/platform)
+* [Shopware platform project](https://github.com/shopware/platform) 
