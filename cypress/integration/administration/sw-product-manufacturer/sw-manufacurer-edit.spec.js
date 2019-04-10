@@ -4,6 +4,7 @@ let mediaUploaded = false;
 
 describe('Manufacturer: Edit in various ways', function () {
     beforeEach(function () {
+        cy.setLocaleToEnGb();
         return cy.loginViaApi().then(() => {
             return cy.createDefaultFixture('product-manufacturer')
         })
