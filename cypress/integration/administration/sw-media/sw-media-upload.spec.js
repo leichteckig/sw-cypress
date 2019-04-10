@@ -2,6 +2,7 @@ import MediaPageObject from "../../../support/pages/module/sw-media.page-object"
 
 describe('Media: Create item via uploading image', function () {
     beforeEach(function () {
+        cy.setLocaleToEnGb();
         return cy.loginViaApi();
     });
     it('upload image and check metadata', function () {
