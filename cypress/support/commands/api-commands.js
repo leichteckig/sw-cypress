@@ -24,6 +24,20 @@ Cypress.Commands.add("authenticate", () => {
 });
 
 /**
+ * Switches administration UI locale to EN_GB
+ * @memberOf Cypress.Chainable#
+ * @name setLocaleToEnGb
+ * @function
+ */
+Cypress.Commands.add("setLocaleToEnGb", () => {
+    cy.authenticate().then(() => {
+        return cy.window().then((win) => {
+            win.localStorage.setItem('sw-admin-locale', 'en-GB');
+        })
+    })
+});
+
+/**
  * Logs in silently using Shopware API
  * @memberOf Cypress.Chainable#
  * @name loginViaApi
