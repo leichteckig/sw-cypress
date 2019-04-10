@@ -23,7 +23,7 @@ describe('Media: Create item via uploading image', function () {
         cy.get('.sw-media-quickinfo-metadata-mimeType').contains('image/png');
         cy.get('.sw-media-quickinfo-metadata-size').contains('501.38KB');
         cy.get('.sw-media-quickinfo-metadata-file-type').contains('PNG');
-        cy.get('.sw-media-quickinfo-metadata-name input').contains('sw-login-background');
+        cy.get('.sw-media-quickinfo-metadata-name input').invoke('val').should('eq', 'sw-login-background');
     });
     afterEach(function () {
         return cy.removeFixtureByName('sw-login-background', 'media', {
