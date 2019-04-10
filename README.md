@@ -7,6 +7,10 @@ Shopware platform itself is not shipped with this project. This way, you need a 
 
 At first, clone this project in a folder you like. After that, you just need to follow the usual steps for [Cypress installation](https://docs.cypress.io/guides/getting-started/installing-cypress.html).
 
+## One thing to keep in mind
+
+Please notice that these Cypress test rely on a clean installation without any custom or demo data. You can quckly prepare such an environment using `./psh.phar init` in your shopware platform installation instead of `./psh.phar install`.
+
 ## Further information
 
 * [Cypress documentation](https://docs.cypress.io/guides/overview/why-cypress.html)
