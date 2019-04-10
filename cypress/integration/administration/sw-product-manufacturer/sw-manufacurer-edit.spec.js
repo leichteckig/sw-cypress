@@ -39,7 +39,7 @@ describe('Manufacturer: Edit in various ways', function () {
         cy.get('.sw-grid-row:nth-of-type(1) > .sw-grid-column:nth-of-type(5) .sw-context-button').click();
         cy.get('.sw-context-menu-item').first().click();
         cy.get('.sw-media-upload__switch-mode').click();
-        cy.get('input[name=sw-field--url]').clear().typeAndCheck('http://localhost/bundles/administration/static/fixtures/sw-login-background.png');
+        cy.get('input[name=sw-field--url]').clear().typeAndCheck(`${Cypress.config('baseUrl')}/bundles/administration/static/fixtures/sw-login-background.png`);
         cy.get('.sw-media-url-form__submit-button').click();
         mediaUploaded = true;
 
@@ -55,10 +55,8 @@ describe('Manufacturer: Edit in various ways', function () {
             if(!mediaUploaded) {
                 return Promise.resolve();
             }
-
             return cy.removeFixtureByName('sw-login-background', 'media', {
                 identifier: 'fileName',
-                fixtureFlag: 'updatedSecondTime'
             });
         })
     });

@@ -34,7 +34,7 @@ describe('Product: Create with image', function () {
         cy.get('input[name=sw-field--product-stock]').typeAndCheck('100');
 
         cy.get('.sw-media-upload__switch-mode').click();
-        cy.get('input[name=sw-field--url]').type('http://localhost:8000/bundles/administration/static/fixtures/sw-login-background.png');
+        cy.get('input[name=sw-field--url]').type(`${Cypress.config('baseUrl')}/bundles/administration/static/fixtures/sw-login-background.png`);
         cy.get('.sw-media-url-form__submit-button').click();
         cy.awaitAndCheckNotification('File has been saved successfully.');
 
@@ -54,8 +54,7 @@ describe('Product: Create with image', function () {
             return cy.removeFixtureByName('Product with file upload image', 'product');
         }).then(() => {
             return cy.removeFixtureByName('sw-login-background', 'media', {
-                identifier: 'fileName',
-                fixtureFlag: 'updatedSecondTime'
+                identifier: 'fileName'
             });
         })
     });
