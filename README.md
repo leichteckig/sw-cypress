@@ -1,6 +1,6 @@
 # sw-cypress
 
-This is a project to to write E2E tests for the [Shopware platform project](https://github.com/shopware/platform) using Cypress framework.
+This is a project dealing with the implementation of E2E tests for the [Shopware platform project](https://github.com/shopware/platform) using Cypress framework.
 
 ## Setup
 Shopware platform itself is not shipped with this project. This way, you need a running environment with a shopware platform repository. For more details about the setup steps, please refer to Shopware platform's [getting started guide](https://docs.shopware.com/en/shopware-platform-dev-en/getting-started).
