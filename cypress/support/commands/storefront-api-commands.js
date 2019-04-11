@@ -66,7 +66,8 @@ Cypress.Commands.add('getRandomProductInformationForCheckout', () => {
         return {
             id: result[0].id,
             name: result[0].name,
-            url: `/detail/${result[0].id}`
+            url: `/detail/${result[0].id}`,
+            price: result[0].calculatedListingPrice.unitPrice
         }
     })
 });
