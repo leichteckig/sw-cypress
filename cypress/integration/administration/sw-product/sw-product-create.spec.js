@@ -1,12 +1,14 @@
 import ProductPageObject from "../../../support/pages/module/sw-product.page-object";
 
 describe('Product: Create with image', function () {
+
     beforeEach(function () {
         cy.setLocaleToEnGb();
         return cy.loginViaApi().then(() => {
             return cy.createDefaultFixture('category')
         })
     });
+
     it('creates a product with an image', function () {
         const page = new ProductPageObject();
 
@@ -50,6 +52,7 @@ describe('Product: Create with image', function () {
         cy.get(`${page.elements.dataGridRow}--0 .sw-data-grid__cell--name`).contains('Product with file upload image');
         cy.get(page.elements.smartBarAmount).contains('(1)');
     });
+
     afterEach(function () {
         return cy.removeFixtureByName('MainCategory', 'category').then(() => {
             return cy.removeFixtureByName('Product with file upload image', 'product');

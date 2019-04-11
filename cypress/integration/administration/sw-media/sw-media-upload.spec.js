@@ -1,10 +1,12 @@
 import MediaPageObject from "../../../support/pages/module/sw-media.page-object";
 
 describe('Media: Create item via uploading image', function () {
+
     beforeEach(function () {
         cy.setLocaleToEnGb();
         return cy.loginViaApi();
     });
+
     it('upload image and check metadata', function () {
         const page = new MediaPageObject();
 
@@ -26,6 +28,7 @@ describe('Media: Create item via uploading image', function () {
         cy.get('.sw-media-quickinfo-metadata-file-type').contains('PNG');
         cy.get('.sw-media-quickinfo-metadata-name input').invoke('val').should('eq', 'sw-login-background');
     });
+
     afterEach(function () {
         return cy.removeFixtureByName('sw-login-background', 'media', {
             identifier: 'fileName'

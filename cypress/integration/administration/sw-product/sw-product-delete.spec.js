@@ -1,6 +1,7 @@
 import ProductPageObject from "../../../support/pages/module/sw-product.page-object";
 
 describe('Product: Delete in various ways', function () {
+
     beforeEach(function () {
         cy.setLocaleToEnGb();
         return cy.loginViaApi().then(() => {
@@ -10,6 +11,7 @@ describe('Product: Delete in various ways', function () {
             })
         })
     });
+
     it('delete using context menu action', function () {
         const page = new ProductPageObject();
 
