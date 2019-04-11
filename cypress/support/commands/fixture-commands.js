@@ -1,3 +1,5 @@
+const createUuid = require('uuid/v4');
+
 /**
  * Search for an existing entity using Shopware API at the given endpoint
  * @memberOf Cypress.Chainable#
@@ -12,8 +14,6 @@ Cypress.Commands.add("createDefaultFixture", (endpoint) => {
             endpoint: endpoint,
             data: json
         })
-    }).then((result) => {
-        return cy.log(result)
     });
 });
 
@@ -27,8 +27,6 @@ Cypress.Commands.add("createDefaultFixture", (endpoint) => {
  * @param {Object} [options={}] - Options concerning deletion [options={}]
  */
 Cypress.Commands.add("removeFixtureByName", (name, endpoint, options = {}) => {
-    const fixtureFlag = options.fixtureFlag ? options.fixtureFlag : 'updated';
-
     return cy.searchViaAdminApi({
         endpoint: endpoint,
         data: {
@@ -51,10 +49,14 @@ Cypress.Commands.add("removeFixtureByName", (name, endpoint, options = {}) => {
 Cypress.Commands.add("createProductFixture", (endpoint, options = {}) => {
     let json = {};
     let manufacturerId = '';
-
+    let categoryId = '';
 
     return cy.fixture(endpoint).then((result) => {
         json = result;
+
+        return cy.createDefaultFixture('category')
+    }).then((result) => {
+        categoryId = result;
 
         return cy.searchViaAdminApi({
             endpoint: 'product-manufacturer',
@@ -74,14 +76,76 @@ Cypress.Commands.add("createProductFixture", (endpoint, options = {}) => {
             }
         })
     }).then((result) => {
-        return Object.assign({
+        return Object.assign({}, {
             taxId: result.id,
-            manufacturerId: manufacturerId
+            manufacturerId: manufacturerId,
+            categoryId: categoryId
         }, json);
     }).then((result) => {
+        console.log('endresult', result);
         return cy.createViaAdminApi({
             endpoint: endpoint,
             data: result
         })
+    })
+});
+
+/**
+ * Sets category and visibility for a product in order to set it visible in the Storefront
+ * @memberOf Cypress.Chainable#
+ * @name setProductFixtureVisibility
+ * @function
+ */
+Cypress.Commands.add("setProductFixtureVisibility", () => {
+    let salesChannelId = '';
+    let productId = '';
+
+    return cy.searchViaAdminApi({
+        endpoint: 'sales-channel',
+        data: {
+            field: 'name',
+            value: 'Storefront API endpoint'
+        }
+    }).then((result) => {
+        salesChannelId = result.id;
+
+        return cy.searchViaAdminApi({
+            endpoint: 'product',
+            data: {
+                field: 'name',
+                value: 'Product name'
+            }
+        })
+    }).then((result) => {
+        productId = result.id;
+
+        return cy.updateViaAdminApi('product', productId, {
+            data: {
+                visibilities: [
+                    {
+                        visibility: 30,
+                        salesChannelId: salesChannelId,
+                    }
+                ]
+            }
+        });
+    }).then(() => {
+        return cy.searchViaAdminApi({
+            endpoint: 'category',
+            data: {
+                field: 'name',
+                value: 'MainCategory'
+            }
+        })
+    }).then((result) => {
+        return cy.updateViaAdminApi('product', productId, {
+            data: {
+                categories: [
+                    {
+                        id: result.id
+                    }
+                ]
+            }
+        });
     })
 });

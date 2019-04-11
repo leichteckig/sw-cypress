@@ -132,11 +132,13 @@ Cypress.Commands.add("searchRequestAdminApi", (method, url, requestData = {}) =>
  * @param {Object} data - Necessary  for the API request
  */
 Cypress.Commands.add("createViaAdminApi", (data) => {
+    console.log('data :', data);
     return cy.requestAdminApi(
         'POST',
-        `/api/v1/${data.endpoint}`,
+        `/api/v1/${data.endpoint}?response=true`,
         data
     ).then((responseData) => {
+        console.log('responseData :', responseData);
         return responseData;
     });
 });
@@ -179,3 +181,20 @@ Cypress.Commands.add("deleteViaAdminApi", (endpoint, id) => {
         return responseData;
     });
 });
+
+
+/**
+ * Updates an existing entity using Shopware API at the given endpoint
+ * @memberOf Cypress.Chainable#
+ * @name updateViaAdminApi
+ * @function
+ * @param {String} endpoint - API endpoint for the request
+ * @param {String} id - Id of the entity to be updated
+ * @param {Object} data - Necessary data for the API request
+ */
+Cypress.Commands.add("updateViaAdminApi", (endpoint, id, data) => {
+    return cy.requestAdminApi('PATCH', `/api/v1/${endpoint}/${id}`, data).then((responseData) => {
+        return responseData;
+    });
+});
+
