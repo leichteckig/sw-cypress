@@ -5,7 +5,6 @@ describe('Product: Open product page', function () {
   });
 
     it('check if product is visible', function () {
-
         cy.visit(this.product.url);
 
         cy.get('.product-detail-name').contains(this.product.name);

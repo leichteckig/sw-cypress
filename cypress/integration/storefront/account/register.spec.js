@@ -1,19 +1,20 @@
 describe('Register: Open register form', function () {
+
     it('check if register form is present', function () {
-        cy.visit('account/login');
+        cy.visit('/account/login');
 
         cy.get('.register-form').should('be.visible');
     });
 
     it('trigger validation error', function () {
-        cy.visit('account/login');
+        cy.visit('/account/login');
 
         cy.get('[name="email"]:invalid').should('be.visible');
         cy.get('.register-submit [type="submit"]').click();
     });
 
     it('fill form', function () {
-        cy.visit('account/login');
+        cy.visit('/account/login');
 
         cy.get('select[name="salutationId"]').select('Mx.');
         cy.get('input[name="title"]').type('Prof. Dr.');

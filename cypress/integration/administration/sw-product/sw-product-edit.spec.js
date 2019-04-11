@@ -1,6 +1,7 @@
 import ProductPageObject from "../../../support/pages/module/sw-product.page-object";
 
 describe('Product: Edit in various ways', function () {
+
     beforeEach(function () {
         cy.setLocaleToEnGb();
         return cy.loginViaApi().then(() => {
@@ -10,6 +11,7 @@ describe('Product: Edit in various ways', function () {
             })
         })
     });
+
     it('edit a product\'s base data', function () {
         const page = new ProductPageObject();
 
@@ -35,6 +37,7 @@ describe('Product: Edit in various ways', function () {
         cy.get(page.elements.loader).should('not.exist');
         cy.awaitAndCheckNotification('Product "Product name" has been saved successfully.');
     });
+
     it('edit a product\'s translation', function () {
         const page = new ProductPageObject();
 
@@ -60,6 +63,7 @@ describe('Product: Edit in various ways', function () {
         cy.get(`${page.elements.dataGridRow}--0`).reload();
         cy.get(`${page.elements.dataGridRow}--0 .sw-data-grid__cell--name`).contains('Sauerkraut');
     });
+
     afterEach(function () {
         return cy.removeFixtureByName('Product name', 'product')
     });

@@ -1,10 +1,12 @@
 import ManufacturerPageObject from "../../../support/pages/module/sw-manufacturer.page-object";
 
 describe('Manufacturer: Create a new one', function () {
+
     beforeEach(function () {
         cy.setLocaleToEnGb();
         cy.loginViaApi();
     });
+
     it('create new manufacturer', function () {
         const page = new ManufacturerPageObject();
 
@@ -26,6 +28,7 @@ describe('Manufacturer: Create a new one', function () {
         cy.get(page.elements.smartBarBack).click();
         cy.get(page.elements.smartBarAmount).contains('2');
     });
+
     afterEach(function () {
         return cy.removeFixtureByName('MAN-U-FACTURE', 'product-manufacturer')
     });

@@ -43,7 +43,7 @@ Cypress.Commands.add("login", (userType) => {
 
     const user = types[userType];
 
-    cy.visit('localhost:8000/admin');
+    cy.visit('/admin');
 
     cy.contains('Username');
     cy.contains('Password');

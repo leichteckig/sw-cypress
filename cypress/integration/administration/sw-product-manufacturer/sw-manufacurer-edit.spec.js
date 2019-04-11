@@ -3,12 +3,14 @@ import ManufacturerPageObject from "../../../support/pages/module/sw-manufacture
 let mediaUploaded = false;
 
 describe('Manufacturer: Edit in various ways', function () {
+
     beforeEach(function () {
         cy.setLocaleToEnGb();
         return cy.loginViaApi().then(() => {
             return cy.createDefaultFixture('product-manufacturer')
         })
     });
+
     it('edit manufacturer\'s base data', function () {
         const page = new ManufacturerPageObject();
 
@@ -31,6 +33,7 @@ describe('Manufacturer: Edit in various ways', function () {
         cy.get(page.elements.manufacturerSave).click();
         cy.get(page.elements.alert).should('be.visible');
     });
+
     it('upload manufacturer logo', function () {
         const page = new ManufacturerPageObject();
 
@@ -51,6 +54,7 @@ describe('Manufacturer: Edit in various ways', function () {
         cy.get(page.elements.manufacturerSave).click();
         cy.awaitAndCheckNotification('Manufacturer "MAN-U-FACTURE" has been saved successfully.');
     });
+
     afterEach(function () {
         return cy.removeFixtureByName('MAN-U-FACTURE', 'product-manufacturer').then(() => {
             if(!mediaUploaded) {

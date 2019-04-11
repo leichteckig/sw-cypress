@@ -1,12 +1,14 @@
 import ManufacturerPageObject from "../../../support/pages/module/sw-manufacturer.page-object";
 
 describe('Manufacturer: Delete in various ways', function () {
+
     beforeEach(function () {
         cy.setLocaleToEnGb();
         return cy.loginViaApi().then(() => {
             return cy.createDefaultFixture('product-manufacturer')
         })
     });
+
     it('delete manufacturer via context menu', function () {
         const page = new ManufacturerPageObject();
 
