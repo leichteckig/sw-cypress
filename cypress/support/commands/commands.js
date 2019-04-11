@@ -232,3 +232,28 @@ Cypress.Commands.add('clickContextMenuItem', (menuButtonSelector, menuOpenSelect
     cy.get(menuButtonSelector).click();
     cy.get(contextMenuCssSelector).should('not.exist');
 });
+
+/**
+ * Click context menu in order to cause a desired action
+ * @memberOf Cypress.Chainable#
+ * @name clickMainMenuItem
+ * @function
+ * @param {Object} obj - Menu options
+ * @param {String} obj.targetPath - The url the user should end with
+ * @param {String} obj.mainMenuId - Id of the Main Menu item
+ * @param {String} obj.subMenuId - Id of the sub menu item
+ */
+Cypress.Commands.add('clickMainMenuItem', ({ targetPath, mainMenuId, subMenuId = null }) => {
+    let finalMenuItem = `.sw-admin-menu__item--${mainMenuId}`;
+
+    cy.get('.sw-admin-menu').should('be.visible').then(() => {
+        if (subMenuId) {
+            cy.get(finalMenuItem).hover();
+            cy.get('.sw-admin-menu__flyout').should('be.visible');
+            cy.get(`.sw-admin-menu__flyout-item--${subMenuId}`).click();
+        } else {
+            cy.get(finalMenuItem).click()
+        }
+    });
+    cy.url().should('include', targetPath)
+});
