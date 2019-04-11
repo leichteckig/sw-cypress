@@ -9,11 +9,11 @@ Cypress.Commands.add("authenticate", () => {
         'POST',
         '/api/oauth/token',
         {
-            grant_type: 'password',
-            client_id: 'administration',
-            scopes: 'write',
-            username: 'admin',
-            password: 'shopware'
+            grant_type: Cypress.env('grant') ? Cypress.env('grant') : 'password',
+            client_id: Cypress.env('client_id') ? Cypress.env('client_id') : 'administration',
+            scopes: Cypress.env('scope') ? Cypress.env('scope') : 'write',
+            username: Cypress.env('username') ? Cypress.env('username') : 'admin',
+            password: Cypress.env('password') ? Cypress.env('password') : 'shopware'
         }).then((responseData) => {
         return {
             access: responseData.body.access_token,
