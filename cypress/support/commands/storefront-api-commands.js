@@ -30,15 +30,23 @@ Cypress.Commands.add('getSalesChannelId', () => {
  * @memberOf Cypress.Chainable#
  * @name storefrontApiRequest
  * @function
+ * @param {string} HTTP-Method
+ * @param {string} endpoint name
+ * @param {Object} header
+ * @param {Object} body
  */
-Cypress.Commands.add('storefrontApiRequest', (method, entityName) => {
+Cypress.Commands.add('storefrontApiRequest', (method, endpoint, header = {}, body = {}) => {
     return cy.getSalesChannelId().then((salesChannelAccessKey) => {
         const requestConfig = {
             headers: {
-                'x-sw-access-key': salesChannelAccessKey
+                'x-sw-access-key': salesChannelAccessKey,
+                ...header
+            },
+            body: {
+                ...body
             },
             method: method,
-            url: `/storefront-api/v1/${entityName}`,
+            url: `/storefront-api/v1/${endpoint}`,
         };
 
         return cy.request(requestConfig).then((result) => {

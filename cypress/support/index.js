@@ -15,10 +15,13 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands/commands'
+
 // Import api commands.js using ES2015 syntax:
 import './commands/api-commands'
+
 //Import storefront api commands using ES2015 syntax:
 import './commands/storefront-api-commands'
+
 // Import fixture commands.js using ES2015 syntax:
 import './commands/fixture-commands'
 
