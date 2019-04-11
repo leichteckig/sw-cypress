@@ -248,7 +248,7 @@ Cypress.Commands.add('clickMainMenuItem', ({ targetPath, mainMenuId, subMenuId =
 
     cy.get('.sw-admin-menu').should('be.visible').then(() => {
         if (subMenuId) {
-            cy.get(finalMenuItem).hover();
+            cy.get(finalMenuItem).trigger('mouseover');
             cy.get('.sw-admin-menu__flyout').should('be.visible');
             cy.get(`.sw-admin-menu__flyout-item--${subMenuId}`).click();
         } else {
