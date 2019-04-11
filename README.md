@@ -9,7 +9,7 @@ At first, clone this project in a folder you like. After that, you can just run 
 
 ## One thing to keep in mind
 
-Please notice that these Cypress tests in 'cypress/integration/administration'rely on a clean installation without any custom or demo data. You can quickly prepare such an environment using `./psh.phar init` in your Shopware platform installation instead of `./psh.phar install`.
+Please notice that these Cypress tests in `cypress/integration/administration` rely on a clean installation without any custom or demo data. You can quickly prepare such an environment using `./psh.phar init` in your Shopware platform installation instead of `./psh.phar install`.
 
 ## Install Cypress
 
