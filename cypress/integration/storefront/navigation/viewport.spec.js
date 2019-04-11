@@ -1,7 +1,7 @@
 describe('Nav Menus', function () {
 
   beforeEach(() => {
-    cy.visit('');
+    cy.visit('/');
   });
 
   context('720p resolution', function () {
