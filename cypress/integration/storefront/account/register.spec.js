@@ -13,7 +13,7 @@ describe('Register: Open register form', function () {
         cy.get('.register-submit [type="submit"]').click();
     });
 
-    it('fill form', function () {
+    it('fill registration form and submit', function () {
         cy.visit('/account/login');
 
         cy.get('select[name="salutationId"]').select('Mx.');
@@ -25,7 +25,7 @@ describe('Register: Open register form', function () {
         cy.get('select[name="birthdayMonth"]').select('8');
         cy.get('select[name="birthdayYear"]').select('1917');
 
-        cy.get('.register-form input[name="email"]').type('john+'+Math.random() * 100+'@example.com');
+        cy.get('.register-form input[name="email"]').type('john-doe-for-testing@example.com');
         cy.get('.register-form input[name="password"]').type('1234567890');
 
         cy.get('input[name="billingAddress[street]"]').type('123 Main St');
@@ -41,5 +41,10 @@ describe('Register: Open register form', function () {
         cy.get('.account-welcome h1').should((element) => {
             expect(element).to.contain('Prof. Dr.');
         });
+    });
+    after(function () {
+        return cy.removeFixtureByName('john-doe-for-testing@example.com', 'customer', {
+            identifier: 'email'
+        })
     });
 });

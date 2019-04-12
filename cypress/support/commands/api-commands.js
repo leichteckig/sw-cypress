@@ -59,7 +59,6 @@ Cypress.Commands.add("loginViaApi", () => {
     });
 });
 
-
 /**
  * Handling API requests
  * @memberOf Cypress.Chainable#
@@ -181,7 +180,6 @@ Cypress.Commands.add("deleteViaAdminApi", (endpoint, id) => {
         return responseData;
     });
 });
-
 
 /**
  * Updates an existing entity using Shopware API at the given endpoint

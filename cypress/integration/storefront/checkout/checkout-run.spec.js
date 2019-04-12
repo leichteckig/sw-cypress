@@ -21,7 +21,7 @@ describe('Home: Open home page', function () {
         cy.get('select[name="birthdayMonth"]').select('8');
         cy.get('select[name="birthdayYear"]').select('1917');
 
-        cy.get('.register-form input[name="email"]').type('john+' + Math.random() * 100 + '@example.com');
+        cy.get('.register-form input[name="email"]').type('john-doe-for-testing@example.com');
         cy.get('.register-form input[name="password"]').type('1234567890');
 
         cy.get('input[name="billingAddress[street]"]').type('123 Main St');
@@ -58,5 +58,10 @@ describe('Home: Open home page', function () {
         * cy.get('#confirmFormSubmit').click();
         * cy.get('.finish-header').contains('Thank you for your order with Shopware Storefront!');
         */
+    });
+    after(function () {
+        return cy.removeFixtureByName('john-doe-for-testing@example.com', 'customer', {
+            identifier: 'email'
+        })
     });
 });
