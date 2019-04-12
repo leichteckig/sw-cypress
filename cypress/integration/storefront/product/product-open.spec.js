@@ -9,7 +9,7 @@ describe('Product: Open product page', function () {
             cy.visit(product.url);
 
             cy.get('.product-detail-name').contains(product.name);
-            cy.get('.product-detail-price').contains(product.price);
+            cy.get('.product-detail-price').contains(product.listingPrice);
         })
     });
 
@@ -19,7 +19,7 @@ describe('Product: Open product page', function () {
 
             cy.get('input[type="search"]').type(product.name);
 
-            cy.get('ul.search-suggest-container .result-link:first').click()
+            cy.get('ul.search-suggest-container .result-link:first').click();
 
             cy.url().should('contain', product.url);
             cy.get('.product-detail-name').contains(product.name);
