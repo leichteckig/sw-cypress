@@ -59,7 +59,6 @@ Cypress.Commands.add("loginViaApi", () => {
     });
 });
 
-
 /**
  * Handling API requests
  * @memberOf Cypress.Chainable#
@@ -95,6 +94,12 @@ Cypress.Commands.add("requestAdminApi", (method, url, requestData = {}) => {
     });
 });
 
+/**
+ * Handling API requests origination from a search task
+ * @memberOf Cypress.Chainable#
+ * @name searchRequestAdminApi
+ * @function
+ */
 Cypress.Commands.add("searchRequestAdminApi", (method, url, requestData = {}) => {
     return cy.authenticate().then((result) => {
         const requestConfig = {
@@ -181,7 +186,6 @@ Cypress.Commands.add("deleteViaAdminApi", (endpoint, id) => {
         return responseData;
     });
 });
-
 
 /**
  * Updates an existing entity using Shopware API at the given endpoint

@@ -82,7 +82,6 @@ Cypress.Commands.add("createProductFixture", (endpoint, options = {}) => {
             categoryId: categoryId
         }, json);
     }).then((result) => {
-        console.log('endresult', result);
         return cy.createViaAdminApi({
             endpoint: endpoint,
             data: result
@@ -121,12 +120,10 @@ Cypress.Commands.add("setProductFixtureVisibility", () => {
 
         return cy.updateViaAdminApi('product', productId, {
             data: {
-                visibilities: [
-                    {
-                        visibility: 30,
-                        salesChannelId: salesChannelId,
-                    }
-                ]
+                visibilities: [{
+                    visibility: 30,
+                    salesChannelId: salesChannelId,
+                }]
             }
         });
     }).then(() => {
@@ -140,11 +137,9 @@ Cypress.Commands.add("setProductFixtureVisibility", () => {
     }).then((result) => {
         return cy.updateViaAdminApi('product', productId, {
             data: {
-                categories: [
-                    {
-                        id: result.id
-                    }
-                ]
+                categories: [{
+                    id: result.id
+                }]
             }
         });
     })

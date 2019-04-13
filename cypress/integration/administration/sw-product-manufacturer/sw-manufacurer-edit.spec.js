@@ -1,7 +1,5 @@
 import ManufacturerPageObject from "../../../support/pages/module/sw-manufacturer.page-object";
 
-let mediaUploaded = false;
-
 describe('Manufacturer: Edit in various ways', function () {
 
     beforeEach(function () {
@@ -57,9 +55,6 @@ describe('Manufacturer: Edit in various ways', function () {
 
     afterEach(function () {
         return cy.removeFixtureByName('MAN-U-FACTURE', 'product-manufacturer').then(() => {
-            if(!mediaUploaded) {
-                return Promise.resolve();
-            }
             return cy.removeFixtureByName('sw-login-background', 'media', {
                 identifier: 'fileName',
             });
