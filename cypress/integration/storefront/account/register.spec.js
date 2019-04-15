@@ -2,7 +2,6 @@ describe('Register: Open register form', function () {
 
     it('check if register form is present', function () {
         cy.visit('/account/login');
-
         cy.get('.register-form').should('be.visible');
     });
 

@@ -94,6 +94,12 @@ Cypress.Commands.add("requestAdminApi", (method, url, requestData = {}) => {
     });
 });
 
+/**
+ * Handling API requests origination from a search task
+ * @memberOf Cypress.Chainable#
+ * @name searchRequestAdminApi
+ * @function
+ */
 Cypress.Commands.add("searchRequestAdminApi", (method, url, requestData = {}) => {
     return cy.authenticate().then((result) => {
         const requestConfig = {
