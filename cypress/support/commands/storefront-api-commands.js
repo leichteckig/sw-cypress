@@ -46,7 +46,7 @@ Cypress.Commands.add('storefrontApiRequest', (method, endpoint, header = {}, bod
                 ...body
             },
             method: method,
-            url: `/storefront-api/v1/${endpoint}`,
+            url: `/sales-channel-api/v1/${endpoint}`,
         };
 
         return cy.request(requestConfig).then((result) => {
