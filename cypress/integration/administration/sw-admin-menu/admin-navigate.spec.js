@@ -3,8 +3,9 @@ import PageObject from "../../../support/pages/sw-general.page-object";
 describe('Administration: Check module navigation', function () {
 
     beforeEach(function () {
-        cy.setLocaleToEnGb();
-        return cy.loginViaApi();
+        cy.setLocaleToEnGb().then(() => {
+            return cy.loginViaApi();
+        });
     });
 
     it('check product module', function () {

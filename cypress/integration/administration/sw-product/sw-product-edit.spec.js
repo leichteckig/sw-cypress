@@ -3,8 +3,9 @@ import ProductPageObject from "../../../support/pages/module/sw-product.page-obj
 describe('Product: Edit in various ways', function () {
 
     beforeEach(function () {
-        cy.setLocaleToEnGb();
-        return cy.loginViaApi().then(() => {
+        cy.setLocaleToEnGb().then(() => {
+            return cy.loginViaApi();
+        }).then(() => {
             return cy.createProductFixture('product', {
                 manufacturerName: 'shopware AG',
                 taxName: '19%'

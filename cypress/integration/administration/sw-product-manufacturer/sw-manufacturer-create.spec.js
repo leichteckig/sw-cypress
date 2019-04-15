@@ -3,8 +3,9 @@ import ManufacturerPageObject from "../../../support/pages/module/sw-manufacture
 describe('Manufacturer: Create a new one', function () {
 
     beforeEach(function () {
-        cy.setLocaleToEnGb();
-        cy.loginViaApi();
+        cy.setLocaleToEnGb().then(() => {
+            return cy.loginViaApi();
+        });
     });
 
     it('create new manufacturer', function () {

@@ -3,8 +3,9 @@ import ManufacturerPageObject from "../../../support/pages/module/sw-manufacture
 describe('Manufacturer: Delete in various ways', function () {
 
     beforeEach(function () {
-        cy.setLocaleToEnGb();
-        return cy.loginViaApi().then(() => {
+        cy.setLocaleToEnGb().then(() => {
+            return cy.loginViaApi();
+        }).then(() => {
             return cy.createDefaultFixture('product-manufacturer')
         })
     });
