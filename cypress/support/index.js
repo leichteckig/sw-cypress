@@ -25,7 +25,19 @@ import './commands/storefront-api-commands'
 // Import fixture commands.js using ES2015 syntax:
 import './commands/fixture-commands'
 
+// Import fixture commands.js using ES2015 syntax:
+import './commands/system-commands'
+
+// Import themes:
+Cypress.config('useDarkTheme') ? require('cypress-dark') : null;
+Cypress.config('useDarkTheme') ? require('cypress-dark/src/halloween') : null;
+
 // Alternatively you can use CommonJS syntax:
 require('./pages/sw-general.page-object');
 require('./pages/module/sw-product.page-object');
 require('./pages/module/sw-manufacturer.page-object');
+
+before(() => {
+    cy.activateShopwareTheme();
+});
+
