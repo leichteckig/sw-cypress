@@ -15,8 +15,11 @@ describe('Product: Delete in various ways', function () {
     it('delete using context menu action', function () {
         const page = new ProductPageObject();
 
-        cy.get(`${page.elements.adminMenu}__navigation-list-item.sw-product span.collapsible-text`).contains('Products');
-        cy.get(`a${page.elements.adminMenu}__navigation-link[href="#/sw/product/index"]`).first().click();
+        cy.clickMainMenuItem({
+            targetPath: '#/sw/product/index',
+            mainMenuId: 'sw-catalogue',
+            subMenuId: 'sw-product'
+        });
         cy.clickContextMenuItem(
             '.sw-context-menu-item--danger',
             page.elements.contextMenuButton,

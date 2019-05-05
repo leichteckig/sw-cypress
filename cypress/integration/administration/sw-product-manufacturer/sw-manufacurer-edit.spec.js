@@ -12,8 +12,11 @@ describe('Manufacturer: Edit in various ways', function () {
     it('edit manufacturer\'s base data', function () {
         const page = new ManufacturerPageObject();
 
-        cy.get(`${page.elements.adminMenu}__navigation-list-item.sw-product`).trigger('mouseover');
-        cy.get(`${page.elements.adminMenu}__flyout-item--sw-manufacturer`).click();
+        cy.clickMainMenuItem({
+            targetPath: '#/sw/manufacturer/index',
+            mainMenuId: 'sw-catalogue',
+            subMenuId: 'sw-manufacturer'
+        });
         cy.get(`${page.elements.smartBarHeader} > h2`).contains('Manufacturer');
         cy.get(page.elements.smartBarAmount).contains('2');
 
@@ -21,7 +24,7 @@ describe('Manufacturer: Edit in various ways', function () {
         cy.get('input[name=name]').clear().typeAndCheck('What does it means?(TM)');
         cy.get('input[name=link]').clear().typeAndCheck('https://google.com/doodles');
         cy.get(page.elements.manufacturerSave).click();
-        cy.awaitAndCheckNotification('Manufacturer "What does it means?(TM)" has been saved successfully.');
+        cy.get('.icon--small-default-checkmark-line-medium').should('be.visible');
 
         cy.get(page.elements.smartBarBack).click();
         cy.reload();
@@ -29,14 +32,17 @@ describe('Manufacturer: Edit in various ways', function () {
         cy.get(`${page.elements.gridRow}--1 a`).click();
         cy.get('input[name=name]').clear().typeAndCheck('MAN-U-FACTURE');
         cy.get(page.elements.manufacturerSave).click();
-        cy.get(page.elements.alert).should('be.visible');
+        cy.get('.icon--small-default-checkmark-line-medium').should('be.visible');
     });
 
     it('upload manufacturer logo', function () {
         const page = new ManufacturerPageObject();
 
-        cy.get(`${page.elements.adminMenu}__navigation-list-item.sw-product`).trigger('mouseover');
-        cy.get(`${page.elements.adminMenu}__flyout-item--sw-manufacturer`).click();
+        cy.clickMainMenuItem({
+            targetPath: '#/sw/manufacturer/index',
+            mainMenuId: 'sw-catalogue',
+            subMenuId: 'sw-manufacturer'
+        });
 
         cy.get('.sw-grid-row:nth-of-type(1) > .sw-grid-column:nth-of-type(5) .sw-context-button').click();
         cy.get('.sw-context-menu-item').first().click();
@@ -45,12 +51,10 @@ describe('Manufacturer: Edit in various ways', function () {
         cy.get('.sw-media-url-form__submit-button').click();
         mediaUploaded = true;
 
-        cy.awaitAndCheckNotification('File has been saved successfully.');
+        cy.awaitAndCheckNotification('A file has been saved successfully.');
         cy.get('.sw-media-preview__item').invoke('attr', 'src').should('contain', 'sw-login-background');
-
-        cy.get('.sw-media-preview__item').should('be.visible');
         cy.get(page.elements.manufacturerSave).click();
-        cy.awaitAndCheckNotification('Manufacturer "MAN-U-FACTURE" has been saved successfully.');
+        cy.get('.icon--small-default-checkmark-line-medium').should('be.visible');
     });
 
     afterEach(function () {

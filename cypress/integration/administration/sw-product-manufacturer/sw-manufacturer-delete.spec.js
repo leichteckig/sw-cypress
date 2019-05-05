@@ -12,8 +12,11 @@ describe('Manufacturer: Delete in various ways', function () {
     it('delete manufacturer via context menu', function () {
         const page = new ManufacturerPageObject();
 
-        cy.get(`${page.elements.adminMenu}__navigation-list-item.sw-product`).trigger('mouseover');
-        cy.get(`${page.elements.adminMenu}__flyout-item--sw-manufacturer`).click();
+        cy.clickMainMenuItem({
+            targetPath: '#/sw/manufacturer/index',
+            mainMenuId: 'sw-catalogue',
+            subMenuId: 'sw-manufacturer'
+        });
         cy.get(`${page.elements.smartBarHeader} > h2`).contains('Manufacturer');
         cy.get(page.elements.smartBarAmount).contains('2');
         cy.clickContextMenuItem(

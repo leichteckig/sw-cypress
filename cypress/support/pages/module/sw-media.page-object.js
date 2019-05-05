@@ -18,7 +18,7 @@ export default class MediaPageObject extends GeneralPageObject {
         cy.get('input[name=sw-field--url]').should('be.visible')
             .type(path);
         cy.get('.sw-media-url-form__submit-button').click();
-        cy.awaitAndCheckNotification('File has been saved successfully.');
+        cy.awaitAndCheckNotification('A file has been saved successfully.');
 
         cy.get('.sw-media-preview__item').invoke('attr', 'src').should('contain', 'sw-login-background');
 

@@ -15,7 +15,7 @@ describe('Register: Open register form', function () {
     it('fill registration form and submit', function () {
         cy.visit('/account/login');
 
-        cy.get('select[name="salutationId"]').select('Mx.');
+        cy.get('select[name="salutationId"]').select('Mr.');
         cy.get('input[name="title"]').type('Prof. Dr.');
         cy.get('input[name="firstName"]').type('John');
         cy.get('input[name="lastName"]').type('Doe');
