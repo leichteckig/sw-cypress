@@ -39,7 +39,7 @@ Cypress.Commands.add('storefrontApiRequest', (method, endpoint, header = {}, bod
     return cy.getSalesChannelId().then((salesChannelAccessKey) => {
         const requestConfig = {
             headers: {
-                'x-sw-access-key': salesChannelAccessKey,
+                'SW-Access-Key': salesChannelAccessKey,
                 ...header
             },
             body: {
@@ -62,14 +62,18 @@ Cypress.Commands.add('storefrontApiRequest', (method, endpoint, header = {}, bod
  * @function
  */
 Cypress.Commands.add('getRandomProductInformationForCheckout', () => {
+    var sample = require('lodash.sample');
     return cy.storefrontApiRequest('GET', 'product').then((result) => {
+        const randomProduct = sample(result);
+        console.log('index :', randomProduct);
+
         return {
-            id: result[0].id,
-            name: result[0].name,
-            net: result[0].price.net,
-            gross: result[0].price.gross,
-            listingPrice: result[0].calculatedListingPrice.unitPrice,
-            url: `/detail/${result[0].id}`
+            id: randomProduct.id,
+            name: randomProduct.name,
+            net: randomProduct.price.net,
+            gross: randomProduct.price.gross,
+            listingPrice: randomProduct.calculatedListingPrice.unitPrice,
+            url: `/detail/${randomProduct.id}`
         }
     })
 });

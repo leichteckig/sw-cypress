@@ -12,12 +12,13 @@ describe('Product: Create with image', function () {
     it('creates a product with an image', function () {
         const page = new ProductPageObject();
 
-        cy.get(`${page.elements.adminMenu}__navigation-list-item.sw-product span.collapsible-text`)
-            .contains('Products');
-        cy.get(`a${page.elements.adminMenu}__navigation-link[href="#/sw/product/index"]`).first().click();
+        cy.clickMainMenuItem({
+            targetPath: '#/sw/product/index',
+            mainMenuId: 'sw-catalogue',
+            subMenuId: 'sw-product'
+        });
         cy.get('a[href="#/sw/product/create"]').click();
         cy.get('input[name=sw-field--product-name]').typeAndCheck('Product with file upload image');
-        cy.get('.ql-editor').type('My very first description').contains('My very first description');
         cy.get('.sw-select-product__select_manufacturer').typeSwSelectAndCheck(
             'shopware AG',
             {
@@ -39,12 +40,12 @@ describe('Product: Create with image', function () {
         cy.get('.sw-media-upload__switch-mode').click();
         cy.get('input[name=sw-field--url]').type(`${Cypress.config('baseUrl')}/bundles/administration/static/fixtures/sw-login-background.png`);
         cy.get('.sw-media-url-form__submit-button').click();
-        cy.awaitAndCheckNotification('File has been saved successfully.');
+        cy.awaitAndCheckNotification('A file has been saved successfully.');
 
         cy.get('.sw-media-preview__item').invoke('attr', 'src').should('contain', 'sw-login-background');
         cy.get(page.elements.productSaveAction).click();
         cy.get(page.elements.loader).should('not.exist');
-        cy.awaitAndCheckNotification('Product "Product with file upload image" has been saved successfully.');
+        cy.get('.icon--small-default-checkmark-line-medium').should('be.visible');
         cy.get(page.elements.smartBarBack).click();
         cy.get(`${page.elements.dataGridRow}--0`).reload();
         cy.get(`${page.elements.dataGridRow}--0 .sw-data-grid__cell--name`).contains('Product with file upload image');

@@ -9,7 +9,6 @@ describe('Product: Open product page', function () {
             cy.visit(product.url);
 
             cy.get('.product-detail-name').contains(product.name);
-            cy.get('.product-detail-price').contains(product.listingPrice);
         })
     });
 

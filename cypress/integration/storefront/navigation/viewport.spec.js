@@ -12,8 +12,8 @@ describe('Nav Menus', function () {
     });
 
     it('displays full header', function () {
-      cy.get('.navbar-nav.navigation-menu').should('be.visible');
-      cy.get('.navbar-toggler').should('not.be.visible');
+      cy.get('.nav.main-navigation-menu').should('be.visible');
+      cy.get('.nav-main-toggle').should('not.be.visible');
     });
   });
 
@@ -25,9 +25,9 @@ describe('Nav Menus', function () {
     });
 
     it('displays mobile menu on click', function () {
-      cy.get('.navbar-nav.navigation-menu').should('not.be.visible');
-      cy.get('.navbar-toggler').should('be.visible').click();
-      cy.get('.js-off-canvas.is-left.offcanvas-menu.is-open').should('be.visible');
+      cy.get('.nav.main-navigation-menu').should('not.be.visible');
+      cy.get('.nav-main-toggle .nav-main-toggle-btn').should('be.visible').click();
+      cy.get('.js-offcanvas.is-left.offcanvas-menu.is-open').should('be.visible');
     });
   });
 });

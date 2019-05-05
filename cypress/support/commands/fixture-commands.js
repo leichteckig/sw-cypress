@@ -104,7 +104,7 @@ Cypress.Commands.add("setProductFixtureVisibility", () => {
         endpoint: 'sales-channel',
         data: {
             field: 'name',
-            value: 'Storefront API endpoint'
+            value: 'Storefront'
         }
     }).then((result) => {
         salesChannelId = result.id;

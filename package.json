@@ -6,6 +6,7 @@
   "main": "index.js",
   "dependencies": {
     "axios": "^0.18.0",
+    "lodash.sample": "^4.2.1",
     "uuid": "^3.3.2"
   },
   "devDependencies": {

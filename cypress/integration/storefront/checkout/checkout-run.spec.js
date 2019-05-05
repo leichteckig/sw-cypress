@@ -12,7 +12,7 @@ describe('Home: Open home page', function () {
     it('run checkout with random product as new customer', function () {
         // Registration
         cy.visit('/account/login');
-        cy.get('select[name="salutationId"]').select('Mx.');
+        cy.get('select[name="salutationId"]').select('Mr.');
         cy.get('input[name="title"]').type('Prof. Dr.');
         cy.get('input[name="firstName"]').type('John');
         cy.get('input[name="lastName"]').type('Doe');
@@ -35,22 +35,16 @@ describe('Home: Open home page', function () {
         cy.get('.buy-widget-submit').click();
 
         // Off canvas
-        cy.get('.js-off-canvas.is-open').should('be.visible');
+        cy.get('.js-offcanvas.is-open').should('be.visible');
         cy.get('.cart-item-link-name').contains(product.name);
-        cy.get('.cart-item-link-price').contains(product.gross);
-        cy.get('.cart-prices-subtotal').contains(product.gross);
 
         // Checkout
         cy.get('.cart-actions .btn-light').click();
-        cy.get('.cart-item-total-price').contains(product.gross);
-        cy.get('.checkout-summary-total .checkout-summary-value').contains(product.gross);
         cy.get('.checkout-main-right .btn-primary').click();
 
         // Confirm
         cy.get('.confirm-terms .card-title').contains('Terms, conditions and cancellation policy');
         cy.get('.cart-item-details-container .cart-item-label').contains(product.name);
-        cy.get('.cart-item-product .cart-item-total-price').contains(product.gross);
-        cy.get('.checkout-summary-total .checkout-summary-value').contains(product.gross);
 
         /*
         * You can continue to checkout from here, if you want to. Just uncomment the following lines.

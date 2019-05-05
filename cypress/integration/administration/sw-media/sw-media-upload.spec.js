@@ -10,9 +10,11 @@ describe('Media: Create item via uploading image', function () {
     it('upload image and check metadata', function () {
         const page = new MediaPageObject();
 
-        cy.get('.sw-admin-menu__navigation-list-item.sw-media span.collapsible-text')
-            .contains('Media');
-        cy.get('a.sw-admin-menu__navigation-link[href="#/sw/media/index"]').click();
+        cy.clickMainMenuItem({
+            targetPath: '#/sw/media/index',
+            mainMenuId: 'sw-content',
+            subMenuId: 'sw-media'
+        });
         cy.clickContextMenuItem(
             '.sw-media-upload__button-url-upload',
             '.sw-media-upload__button-context-menu'
