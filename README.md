@@ -20,7 +20,6 @@ One possibility to fulfill these requirements is the following
 | psh install  | storefront     |
 | psh init     | administration |
 
-
 ## Install Cypress
 
 The easiest way to install Cypress and all npm dependencies into your project folder is this docker helper:
@@ -30,6 +29,14 @@ docker run -ti --rm -v "$(pwd)":/cypress -v npm-root-cache:/root/.cache --workdi
 ```
 
 You can also follow the [Cypress installation guide](https://docs.cypress.io/guides/getting-started/installing-cypress.html) for a manual installation. 
+
+## Configure Cypress
+Some environment variable are needed to run Cypress with Shopware platform properly. Those environment variables have
+to be available thorough a `cypress.env.json` file. 
+
+We provide an example you can use out of the box. 
+Therefore, just copy `cypress.env.json.example` in the same folder and remove the `.example` of the file name in the 
+process. Afterwards, feel free to configure the environment variables according to your needs. 
 
 ## Run tests in Docker
 

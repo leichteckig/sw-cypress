@@ -14,7 +14,7 @@ Cypress.Commands.add('getSalesChannelId', () => {
                     'Content-Type': 'application/json'
                 },
                 field: 'name',
-                value: Cypress.config('salesChannelName')
+                value: Cypress.env('salesChannelName')
             },
             endpoint: 'sales-channel'
         };

@@ -3,10 +3,11 @@ import ProductPageObject from "../../../support/pages/module/sw-product.page-obj
 describe('Product: Create with image', function () {
 
     beforeEach(function () {
-        cy.setLocaleToEnGb();
-        return cy.loginViaApi().then(() => {
+        cy.setLocaleToEnGb().then(() => {
+            return cy.loginViaApi();
+        }).then(() => {
             return cy.createDefaultFixture('category')
-        })
+        });
     });
 
     it('creates a product with an image', function () {

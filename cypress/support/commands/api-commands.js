@@ -12,8 +12,8 @@ Cypress.Commands.add("authenticate", () => {
             grant_type: Cypress.env('grant') ? Cypress.env('grant') : 'password',
             client_id: Cypress.env('client_id') ? Cypress.env('client_id') : 'administration',
             scopes: Cypress.env('scope') ? Cypress.env('scope') : 'write',
-            username: Cypress.env('username') ? Cypress.env('username') : 'admin',
-            password: Cypress.env('password') ? Cypress.env('password') : 'shopware'
+            username: Cypress.env('username') ? Cypress.env('user') : 'admin',
+            password: Cypress.env('password') ? Cypress.env('pass') : 'shopware'
         }).then((responseData) => {
         return {
             access: responseData.body.access_token,
@@ -32,7 +32,7 @@ Cypress.Commands.add("authenticate", () => {
 Cypress.Commands.add("setLocaleToEnGb", () => {
     cy.authenticate().then(() => {
         return cy.window().then((win) => {
-            win.localStorage.setItem('sw-admin-locale', 'en-GB');
+            win.localStorage.setItem('sw-admin-locale', Cypress.env('locale'));
         })
     })
 });
@@ -54,7 +54,7 @@ Cypress.Commands.add("loginViaApi", () => {
                 cy.login('admin');
             }
         }).then(() => {
-            cy.visit('/admin');
+            cy.visit(Cypress.env('admin'));
         });
     });
 });
@@ -137,10 +137,9 @@ Cypress.Commands.add("searchRequestAdminApi", (method, url, requestData = {}) =>
  * @param {Object} data - Necessary  for the API request
  */
 Cypress.Commands.add("createViaAdminApi", (data) => {
-    console.log('data :', data);
     return cy.requestAdminApi(
         'POST',
-        `/api/v1/${data.endpoint}?response=true`,
+        `${Cypress.env('apiPath')}/${data.endpoint}?response=true`,
         data
     ).then((responseData) => {
         console.log('responseData :', responseData);
@@ -166,7 +165,7 @@ Cypress.Commands.add("searchViaAdminApi", (data) => {
 
     return cy.searchRequestAdminApi(
         'POST',
-        `/api/v1/search/${data.endpoint}`,
+        `${Cypress.env('apiPath')}/search/${data.endpoint}`,
         filters
     ).then((responseData) => {
         return responseData.body.data[0];
@@ -182,7 +181,7 @@ Cypress.Commands.add("searchViaAdminApi", (data) => {
  * @param {String} id - Id of the entity to be deleted
  */
 Cypress.Commands.add("deleteViaAdminApi", (endpoint, id) => {
-    return cy.requestAdminApi('DELETE', `/api/v1/${endpoint}/${id}`).then((responseData) => {
+    return cy.requestAdminApi('DELETE', `${Cypress.env('apiPath')}/${endpoint}/${id}`).then((responseData) => {
         return responseData;
     });
 });
@@ -197,7 +196,7 @@ Cypress.Commands.add("deleteViaAdminApi", (endpoint, id) => {
  * @param {Object} data - Necessary data for the API request
  */
 Cypress.Commands.add("updateViaAdminApi", (endpoint, id, data) => {
-    return cy.requestAdminApi('PATCH', `/api/v1/${endpoint}/${id}`, data).then((responseData) => {
+    return cy.requestAdminApi('PATCH', `${Cypress.env('apiPath')}/${endpoint}/${id}`, data).then((responseData) => {
         return responseData;
     });
 });

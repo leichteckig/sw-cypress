@@ -46,12 +46,17 @@ describe('Home: Open home page', function () {
         cy.get('.confirm-terms .card-title').contains('Terms, conditions and cancellation policy');
         cy.get('.cart-item-details-container .cart-item-label').contains(product.name);
 
+
         /*
-        * You can continue to checkout from here, if you want to. Just uncomment the following lines.
-        * cy.get('#sAGB').check();
-        * cy.get('#confirmFormSubmit').click();
-        * cy.get('.finish-header').contains('Thank you for your order with Shopware Storefront!');
-        */
+        * As real orders will be created and must not be removed, we don't enable finishing checkout by default.
+        * If you allow orders to be created, just set the variable 'checkoutAllowed' to 'true'
+        * in your cypress.env.json file.
+        * */
+        if (Cypress.env('checkoutAllowed')) {
+            cy.get('#sAGB').check();
+            cy.get('#confirmFormSubmit').click();
+            cy.get('.finish-header').contains('Thank you for your order with Shopware Storefront!');
+        }
     });
     after(function () {
         return cy.removeFixtureByName('john-doe-for-testing@example.com', 'customer', {

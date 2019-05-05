@@ -3,8 +3,9 @@ import ManufacturerPageObject from "../../../support/pages/module/sw-manufacture
 describe('Manufacturer: Edit in various ways', function () {
 
     beforeEach(function () {
-        cy.setLocaleToEnGb();
-        return cy.loginViaApi().then(() => {
+        cy.setLocaleToEnGb().then(() => {
+            return cy.loginViaApi();
+        }).then(() => {
             return cy.createDefaultFixture('product-manufacturer')
         })
     });
@@ -49,7 +50,6 @@ describe('Manufacturer: Edit in various ways', function () {
         cy.get('.sw-media-upload__switch-mode').click();
         cy.get('input[name=sw-field--url]').clear().typeAndCheck(`${Cypress.config('baseUrl')}/bundles/administration/static/fixtures/sw-login-background.png`);
         cy.get('.sw-media-url-form__submit-button').click();
-        mediaUploaded = true;
 
         cy.awaitAndCheckNotification('A file has been saved successfully.');
         cy.get('.sw-media-preview__item').invoke('attr', 'src').should('contain', 'sw-login-background');
