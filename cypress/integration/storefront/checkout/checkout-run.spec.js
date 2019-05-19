@@ -8,8 +8,8 @@ describe('Home: Open home page', function () {
             product = result;
         })
     });
-
-    it('run checkout with random product as new customer', function () {
+    
+    it('run checkout with random product as new customer', () => {
         // Registration
         cy.visit('/account/login');
         cy.get('select[name="salutationId"]').select('Mr.');
@@ -32,18 +32,17 @@ describe('Home: Open home page', function () {
 
         // Product detail
         cy.visit(product.url);
-        cy.get('.buy-widget-submit').click();
+        cy.get('.product-detail-buy .btn-buy').click();
 
         // Off canvas
         cy.get('.js-offcanvas.is-open').should('be.visible');
-        cy.get('.cart-item-link-name').contains(product.name);
+        cy.get('.cart-item-label').contains(product.name);
 
         // Checkout
-        cy.get('.cart-actions .btn-light').click();
-        cy.get('.checkout-main-right .btn-primary').click();
+        cy.get('.offcanvas-cart-actions .btn-primary').click();
 
         // Confirm
-        cy.get('.confirm-terms .card-title').contains('Terms, conditions and cancellation policy');
+        cy.get('.confirm-tos .card-title').contains('Terms, conditions and cancellation policy');
         cy.get('.cart-item-details-container .cart-item-label').contains(product.name);
 
 
@@ -53,7 +52,9 @@ describe('Home: Open home page', function () {
         * in your cypress.env.json file.
         * */
         if (Cypress.env('checkoutAllowed')) {
-            cy.get('#sAGB').check();
+            cy.get('.confirm-tos .custom-control-label').scrollIntoView();
+            cy.get('.confirm-tos .custom-control-label').click();
+            cy.get('#confirmFormSubmit').scrollIntoView();
             cy.get('#confirmFormSubmit').click();
             cy.get('.finish-header').contains('Thank you for your order with Shopware Storefront!');
         }

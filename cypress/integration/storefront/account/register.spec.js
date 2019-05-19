@@ -38,7 +38,7 @@ describe('Register: Open register form', function () {
         cy.url().should('include', '/account');
 
         cy.get('.account-welcome h1').should((element) => {
-            expect(element).to.contain('Prof. Dr.');
+            expect(element).to.contain('Overview');
         });
     });
     after(function () {
