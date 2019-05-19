@@ -21,6 +21,8 @@ describe('Product: Delete in various ways', function () {
             mainMenuId: 'sw-catalogue',
             subMenuId: 'sw-product'
         });
+
+        cy.get('input.sw-search-bar__input').typeAndCheckSearchField('RS-333');
         cy.clickContextMenuItem(
             '.sw-context-menu-item--danger',
             page.elements.contextMenuButton,
@@ -33,9 +35,8 @@ describe('Product: Delete in various ways', function () {
         cy.get(`${page.elements.modal}__footer ${page.elements.primaryButton}`).click();
 
         cy.get(page.elements.modal).should('not.exist');
+        cy.get('input.sw-search-bar__input').typeAndCheckSearchField('RS-333');
         cy.get(page.elements.emptyState).should('be.visible');
-        cy.get(page.elements.smartBarAmount).contains('(0)');
-        cy.get('input.sw-search-bar__input').typeAndCheckSearchField('Product name');
         cy.get(page.elements.smartBarAmount).contains('(0)');
     });
 });

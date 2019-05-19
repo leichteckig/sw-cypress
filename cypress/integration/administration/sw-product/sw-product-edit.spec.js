@@ -21,6 +21,8 @@ describe('Product: Edit in various ways', function () {
             mainMenuId: 'sw-catalogue',
             subMenuId: 'sw-product'
         });
+
+        cy.get('input.sw-search-bar__input').typeAndCheckSearchField('RS-333');
         cy.get(`${page.elements.dataGridRow}--0 .sw-data-grid__cell--name a`).click();
         cy.get('input[name=sw-field--product-name]').clear().type('What remains of Edith Finch');
         cy.get('input[name=sw-field--product-active]').tickAndCheckCheckbox(false);
@@ -30,6 +32,7 @@ describe('Product: Edit in various ways', function () {
 
         cy.get(page.elements.smartBarBack).click();
         cy.get(`${page.elements.dataGridRow}--0`).reload();
+        cy.get('input.sw-search-bar__input').typeAndCheckSearchField('RS-333');
         cy.get(`${page.elements.dataGridRow}--0 .sw-data-grid__cell--name`).contains('What remains of Edith Finch');
         cy.get(`${page.elements.dataGridRow}--0 .is--inactive`).should('be.visible');
 
@@ -51,6 +54,7 @@ describe('Product: Edit in various ways', function () {
             mainMenuId: 'sw-catalogue',
             subMenuId: 'sw-product'
         });
+        cy.get('input.sw-search-bar__input').typeAndCheckSearchField('RS-333');
         cy.get(`${page.elements.dataGridRow}--0 .sw-data-grid__cell--name a`).click();
 
         cy.get('.sw-language-switch').click();
@@ -59,6 +63,7 @@ describe('Product: Edit in various ways', function () {
         cy.get('.sw-select-option:nth-of-type(1)').contains('Deutsch').click();
         cy.get('.sw-field__select-load-placeholder').should('not.exist');
         cy.get(page.elements.loader).should('not.exist');
+        cy.get(`${page.elements.modal} .sw-button--primary`).click();
         cy.get('.sw-language-info span').contains('"Product name" displayed in the root language "Deutsch".');
         cy.get('input[name=sw-field--product-name]').typeAndCheck('Sauerkraut');
 
@@ -68,6 +73,8 @@ describe('Product: Edit in various ways', function () {
 
         cy.get(page.elements.smartBarBack).click();
         cy.get(`${page.elements.dataGridRow}--0`).reload();
+
+        cy.get('input.sw-search-bar__input').typeAndCheckSearchField('RS-333');
         cy.get(`${page.elements.dataGridRow}--0 .sw-data-grid__cell--name`).contains('Sauerkraut');
     });
 

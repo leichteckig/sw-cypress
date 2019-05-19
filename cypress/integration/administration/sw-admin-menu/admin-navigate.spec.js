@@ -54,18 +54,6 @@ describe('Administration: Check module navigation', function () {
         cy.get('.sw-customer-list__content').should('be.visible');
     });
 
-    it('check media module', function () {
-        const page = new PageObject();
-
-        cy.clickMainMenuItem({
-            targetPath: '#/sw/media/index',
-            mainMenuId: 'sw-content',
-            subMenuId: 'sw-media'
-        });
-        cy.get(`${page.elements.smartBarHeader} h2`).contains('Media');
-        cy.get('.sw-media-index__page-content').should('be.visible');
-    });
-
     it('check tax module', function () {
         const page = new PageObject();
 

@@ -49,10 +49,8 @@ describe('Product: Create with image', function () {
         cy.get('.icon--small-default-checkmark-line-medium').should('be.visible');
         cy.get(page.elements.smartBarBack).click();
         cy.get(`${page.elements.dataGridRow}--0`).reload();
-        cy.get(`${page.elements.dataGridRow}--0 .sw-data-grid__cell--name`).contains('Product with file upload image');
         cy.get('input.sw-search-bar__input').typeAndCheckSearchField('Product with file upload image');
         cy.get(`${page.elements.dataGridRow}--0 .sw-data-grid__cell--name`).contains('Product with file upload image');
-        cy.get(page.elements.smartBarAmount).contains('(1)');
     });
 
     afterEach(function () {

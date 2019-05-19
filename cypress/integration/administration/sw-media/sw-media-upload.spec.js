@@ -23,7 +23,7 @@ describe('Media: Create item via uploading image', function () {
 
         page.uploadImageUsingUrl(`${Cypress.config('baseUrl')}/bundles/administration/static/img/sw-login-background.png`);
 
-        cy.get('.sw-media-preview__item').first().should('be.visible').click();
+        cy.get('.sw-media-base-item__name[title="sw-login-background.png"]').should('be.visible').click();
 
         cy.get('.sw-media-quickinfo-metadata-mimeType').should('be.visible');
         cy.get('.sw-media-quickinfo-metadata-mimeType').contains('image/png');
