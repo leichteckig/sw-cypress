@@ -9,16 +9,14 @@ At first, clone this project in a folder you like. After that, you can just run 
 
 ## One thing to keep in mind
 
-Please notice that these Cypress tests in `cypress/integration/administration` rely on a clean installation without any custom or demo data. 
-
-When it comes to storefront tests, they don't rely on a specific dataset, but do need at least one entity of a kind to be available! E.g. one product, one customer, etc.
+Please notice that these Cypress tests don't rely on a specific dataset, but do need at least one entity of a kind to be available! E.g. one product, one customer, etc.
 
 One possibility to fulfill these requirements is the following
 
-| shell helper | test folder    |
+| shell helper | description    |
 | ------------ |:--------------:|
-| psh install  | storefront     |
-| psh init     | administration |
+| ./psh.phar install  |   Full install with demo data   |
+| ./psh.phar demo-data     | Command to add demo data, even at a later point |
 
 ## Install Cypress
 
