@@ -1,6 +1,6 @@
 # sw-cypress
 
-This is a project dealing with the implementation of E2E tests for the [Shopware platform project](https://github.com/shopware/platform) using Cypress framework.
+This is a project dealing with the implementation of E2E tests for the [Shopware platform project](https://github.com/shopware/platform) using [Cypress](https://www.cypress.io/) framework.
 
 ![photo5386507048319036166](https://user-images.githubusercontent.com/29896429/57980788-dc532980-7a2f-11e9-9736-54fb0bf518db.jpg)
 
