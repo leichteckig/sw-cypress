@@ -1,11 +1,11 @@
 # sw-cypress
 
-This is a project dealing with the implementation of E2E tests for the [Shopware platform project](https://github.com/shopware/platform) using [Cypress](https://www.cypress.io/) framework.
+This is a project dealing with the implementation of E2E tests for the [Shopware 6 platform project](https://github.com/shopware/platform) using [Cypress](https://www.cypress.io/) framework.
 
 ![photo5386507048319036166](https://user-images.githubusercontent.com/29896429/57980788-dc532980-7a2f-11e9-9736-54fb0bf518db.jpg)
 
 ## Setup
-Shopware platform itself is not shipped with this project. This way, you need a running environment with a shopware platform repository. For more details about the setup steps, please refer to Shopware platform's [getting started guide](https://docs.shopware.com/en/shopware-platform-dev-en/getting-started).
+Shopware 6 itself is not shipped with this project. This way, you need a running environment with a shopware platform repository. For more details about the setup steps, please refer to Shopware 6's [getting started guide](https://docs.shopware.com/en/shopware-platform-dev-en/getting-started).
 
 At first, clone this project in a folder you like. After that, you can just run the tests in a Docker container (see below).
 
@@ -33,7 +33,7 @@ You can also follow the [Cypress installation guide](https://docs.cypress.io/gui
 ## Configure Cypress
 
 ### Environment 
-Some environment variable are needed to run Cypress with Shopware platform properly. Those environment variables have
+Some environment variable are needed to run Cypress with Shopware 6 properly. Those environment variables have
 to be available thorough a `cypress.env.json` file. 
 
 We provide an example you can use out of the box. 
@@ -78,6 +78,6 @@ You can override the baseUrl to test a remote Shopware Installation by passing t
 ## Further information
 
 * [Cypress documentation](https://docs.cypress.io/guides/overview/why-cypress.html)
-* [Shopware platform documentation](https://docs.shopware.com/en/shopware-platform-dev-en)
+* [Shopware 6 documentation](https://docs.shopware.com/en/shopware-platform-dev-en)
 * [Shopware development template](https://github.com/shopware/development)
-* [Shopware platform project](https://github.com/shopware/platform) 
+* [Shopware 6 platform project](https://github.com/shopware/platform) 
