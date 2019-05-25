@@ -1,16 +1,15 @@
 import ProductPageObject from "../../../support/pages/module/sw-product.page-object";
 
-describe('Product: Create with image', function () {
-
-    beforeEach(function () {
+describe('Product: Create with image', () => {
+    beforeEach(() => {
         cy.setLocaleToEnGb().then(() => {
             return cy.loginViaApi();
         }).then(() => {
-            return cy.createDefaultFixture('category')
+            return cy.createDefaultFixture('category');
         });
     });
 
-    it('creates a product with an image', function () {
+    it('creates a product with an image', () => {
         const page = new ProductPageObject();
 
         cy.clickMainMenuItem({
@@ -26,14 +25,16 @@ describe('Product: Create with image', function () {
                 searchTerm: 'shopware AG',
                 isMulti: false,
                 clearField: false
-            });
+            }
+        );
         cy.get('.sw-product-detail__select-category').typeSwSelectAndCheck(
             'MainCategory',
             {
                 searchTerm: 'MainCategory',
                 isMulti: true,
                 clearField: false
-            });
+            }
+        );
         cy.get('select[name=sw-field--product-taxId]').select('19%');
         cy.get('input[name=sw-field--price-gross]').typeAndCheck('99');
         cy.get('input[name=sw-field--product-stock]').typeAndCheck('100');
@@ -46,20 +47,21 @@ describe('Product: Create with image', function () {
         cy.get('.sw-media-preview__item').invoke('attr', 'src').should('contain', 'sw-login-background');
         cy.get(page.elements.productSaveAction).click();
         cy.get(page.elements.loader).should('not.exist');
-        cy.get('.icon--small-default-checkmark-line-medium').should('be.visible');
+        cy.get(page.elements.successIcon).should('be.visible');
         cy.get(page.elements.smartBarBack).click();
-        cy.get(`${page.elements.dataGridRow}--0`).reload();
+        cy.reloadListing();
+        cy.get(`${page.elements.dataGridRow}--0 .sw-data-grid__cell--name`).contains('Product with file upload image');
         cy.get('input.sw-search-bar__input').typeAndCheckSearchField('Product with file upload image');
         cy.get(`${page.elements.dataGridRow}--0 .sw-data-grid__cell--name`).contains('Product with file upload image');
     });
 
-    afterEach(function () {
+    afterEach(() => {
         return cy.removeFixtureByName('MainCategory', 'category').then(() => {
             return cy.removeFixtureByName('Product with file upload image', 'product');
         }).then(() => {
             return cy.removeFixtureByName('sw-login-background', 'media', {
                 identifier: 'fileName'
             });
-        })
+        });
     });
 });

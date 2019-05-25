@@ -38,6 +38,7 @@ export default class GeneralPageObject {
             alert: '.sw-alert',
             alertClose: '.sw-alert__close',
             notification: '.sw-notifications__notification',
+            successIcon: '.icon--small-default-checkmark-line-medium'
         };
     }
 }
