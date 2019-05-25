@@ -65,7 +65,6 @@ Cypress.Commands.add('getRandomProductInformationForCheckout', () => {
     var sample = require('lodash.sample');
     return cy.storefrontApiRequest('GET', 'product').then((result) => {
         const randomProduct = sample(result);
-        console.log('index :', randomProduct);
 
         return {
             id: randomProduct.id,

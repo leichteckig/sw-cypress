@@ -8,7 +8,7 @@ describe('Home: Open home page', function () {
             product = result;
         })
     });
-    
+
     it('run checkout with random product as new customer', () => {
         // Registration
         cy.visit('/account/login');
@@ -43,6 +43,9 @@ describe('Home: Open home page', function () {
 
         // Confirm
         cy.get('.confirm-tos .card-title').contains('Terms, conditions and cancellation policy');
+        cy.get('.confirm-tos .custom-checkbox label').scrollIntoView();
+        cy.get('.confirm-tos .custom-checkbox label').click(1, 1);
+        cy.get('.confirm-address').contains('John Doe');
         cy.get('.cart-item-details-container .cart-item-label').contains(product.name);
 
 
@@ -52,8 +55,6 @@ describe('Home: Open home page', function () {
         * in your cypress.env.json file.
         * */
         if (Cypress.env('checkoutAllowed')) {
-            cy.get('.confirm-tos .custom-control-label').scrollIntoView();
-            cy.get('.confirm-tos .custom-control-label').click();
             cy.get('#confirmFormSubmit').scrollIntoView();
             cy.get('#confirmFormSubmit').click();
             cy.get('.finish-header').contains('Thank you for your order with Shopware Storefront!');

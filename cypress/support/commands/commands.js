@@ -101,6 +101,60 @@ Cypress.Commands.add('tickAndCheckCheckbox', {
 Cypress.Commands.add('typeSwSelectAndCheck', {
     prevSubject: 'element'
 }, (subject, value, options) => {
+    const resultPrefix = (options.isMulti) ? '.sw-multi-select' : '.sw-single-select';
+    const inputCssSelector = (options.isMulti) ? `${resultPrefix}__input` : `${resultPrefix}__input-single`;
+
+    cy.wrap(subject).should('be.visible');
+
+    if (options.clearField && options.isMulti) {
+        cy.get(`${subject.selector} .sw-label__dismiss`).click();
+        cy.get(`${subject.selector} ${'.sw-label'}`).should('not.exist');
+    }
+
+    if (!options.isMulti) {
+        // open results list
+        cy.wrap(subject).click();
+        cy.get(`${resultPrefix}__results-list`).should('be.visible');
+    }
+
+    // type in the search term if available
+    if (options.searchTerm) {
+        cy.get(`${subject.selector} ${inputCssSelector}`).typeAndCheck(options.searchTerm);
+        cy.get(`${subject.selector} .sw-select__indicators .sw-loader`).should('not.exist');
+        cy.get(`${subject.selector} ${resultPrefix}__results-list`).should('be.visible');
+        cy.get(`${subject.selector} ${resultPrefix}-option--0 ${resultPrefix}-option__result-item-text`).contains(value);
+    }
+
+    // select the first result
+    cy.get(`${resultPrefix}-option--0`).should('be.visible');
+    cy.get(`${resultPrefix}-option--0`).click({ force: true });
+
+    if (!options.isMulti) {
+        // expect the placeholder for an empty select field not be shown and search for the value
+        cy.get(`${subject.selector} .sw-select__placeholder`).should('not.exist');
+        cy.get(`${subject.selector} ${resultPrefix}__single-selection`).contains(value);
+
+        return this;
+    }
+    // in multi selects we can check if the value is a selected item
+    cy.get(`${subject.selector} ${resultPrefix}__selection-item-holder--0`).contains(value);
+
+    // close search results
+    cy.get(`${subject.selector} ${inputCssSelector}`).type('{esc}');
+    return this;
+});
+
+/**
+ * Types in an legacy swSelect field and checks if the content was correctly typed
+ * @memberOf Cypress.Chainable#
+ * @name typeLegacySelectAndCheck
+ * @function
+ * @param {String} value - Desired value of the element
+ * @param {Object} options - Options concerning swSelect usage
+ */
+Cypress.Commands.add('typeLegacySelectAndCheck', {
+    prevSubject: 'element'
+}, (subject, value, options) => {
     const inputCssSelector = (options.isMulti) ? '.sw-select__input' : '.sw-select__input-single';
 
     cy.wrap(subject).should('be.visible');
@@ -256,4 +310,20 @@ Cypress.Commands.add('clickMainMenuItem', ({ targetPath, mainMenuId, subMenuId =
         }
     });
     cy.url().should('include', targetPath)
+});
+
+/**
+ * Click context menu in order to cause a desired action
+ * @memberOf Cypress.Chainable#
+ * @name reloadListing
+ * @function
+ * @param {Object} [reloadSelectors=null] - The message to look for
+ */
+Cypress.Commands.add('reloadListing', (obj = {
+    reloadButtonSelector: '.sw-sidebar-navigation-item .icon--default-arrow-360-left',
+    loadingIndicatorSelector: 'sw-data-grid-skeleton'
+}) => {
+    cy.get(obj.reloadButtonSelector).should('be.visible');
+    cy.get(obj.reloadButtonSelector).click();
+    cy.get(obj.loadingIndicatorSelector).should('not.exist');
 });

@@ -142,7 +142,6 @@ Cypress.Commands.add("createViaAdminApi", (data) => {
         `${Cypress.env('apiPath')}/${data.endpoint}?response=true`,
         data
     ).then((responseData) => {
-        console.log('responseData :', responseData);
         return responseData;
     });
 });
