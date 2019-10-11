@@ -27,7 +27,7 @@ describe('Nav Menus', function () {
         it('displays mobile menu on click', () => {
             cy.get('.nav.main-navigation-menu').should('not.be.visible');
             cy.get('.header-main .menu-button .nav-main-toggle-btn').should('be.visible').click();
-            cy.get('.js-offcanvas.is-left.offcanvas-menu.is-open').should('be.visible');
+            cy.get('.offcanvas.is-open').should('be.visible');
         });
     });
 });
