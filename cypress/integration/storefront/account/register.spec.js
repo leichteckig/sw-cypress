@@ -15,22 +15,17 @@ describe('Register: Open register form', function () {
     it('fill registration form and submit', function () {
         cy.visit('/account/login');
 
-        cy.get('select[name="salutationId"]').select('Mr.');
-        cy.get('input[name="title"]').type('Prof. Dr.');
-        cy.get('input[name="firstName"]').type('John');
-        cy.get('input[name="lastName"]').type('Doe');
+        cy.get('#personalSalutation').select('Mr.');
+        cy.get('#personalFirstName').type('John');
+        cy.get('#personalLastName').type('Doe');
 
-        cy.get('select[name="birthdayDay"]').select('4');
-        cy.get('select[name="birthdayMonth"]').select('8');
-        cy.get('select[name="birthdayYear"]').select('1917');
+        cy.get('#personalMail').type('john-doe-for-testing@example.com');
+        cy.get('#personalPassword').type('1234567890');
 
-        cy.get('.register-form input[name="email"]').type('john-doe-for-testing@example.com');
-        cy.get('.register-form input[name="password"]').type('1234567890');
-
-        cy.get('input[name="billingAddress[street]"]').type('123 Main St');
-        cy.get('input[name="billingAddress[zipcode]"]').type('9876');
-        cy.get('input[name="billingAddress[city]"]').type('Anytown');
-        cy.get('select[name="billingAddress[countryId]"]').select('USA');
+        cy.get('#billingAddressAddressStreet').type('123 Main St');
+        cy.get('#billingAddressAddressZipcode').type('9876');
+        cy.get('#billingAddressAddressCity').type('Anytown');
+        cy.get('#billingAddressAddressCountry').select('USA');
 
         cy.get('.register-submit [type="submit"]').click();
 

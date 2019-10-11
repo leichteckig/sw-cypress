@@ -12,22 +12,17 @@ describe('Home: Open home page', function () {
     it('run checkout with random product as new customer', () => {
         // Registration
         cy.visit('/account/login');
-        cy.get('select[name="salutationId"]').select('Mr.');
-        cy.get('input[name="title"]').type('Prof. Dr.');
-        cy.get('input[name="firstName"]').type('John');
-        cy.get('input[name="lastName"]').type('Doe');
+        cy.get('#personalSalutation').select('Mr.');
+        cy.get('#personalFirstName').type('John');
+        cy.get('#personalLastName').type('Doe');
 
-        cy.get('select[name="birthdayDay"]').select('4');
-        cy.get('select[name="birthdayMonth"]').select('8');
-        cy.get('select[name="birthdayYear"]').select('1917');
+        cy.get('#personalMail').type('john-doe-for-testing@example.com');
+        cy.get('#personalPassword').type('1234567890');
 
-        cy.get('.register-form input[name="email"]').type('john-doe-for-testing@example.com');
-        cy.get('.register-form input[name="password"]').type('1234567890');
-
-        cy.get('input[name="billingAddress[street]"]').type('123 Main St');
-        cy.get('input[name="billingAddress[zipcode]"]').type('9876');
-        cy.get('input[name="billingAddress[city]"]').type('Anytown');
-        cy.get('select[name="billingAddress[countryId]"]').select('USA');
+        cy.get('#billingAddressAddressStreet').type('123 Main St');
+        cy.get('#billingAddressAddressZipcode').type('9876');
+        cy.get('#billingAddressAddressCity').type('Anytown');
+        cy.get('#billingAddressAddressCountry').select('USA');
         cy.get('.register-form .register-submit .btn-primary').click();
 
         // Product detail
@@ -35,7 +30,7 @@ describe('Home: Open home page', function () {
         cy.get('.product-detail-buy .btn-buy').click();
 
         // Off canvas
-        cy.get('.js-offcanvas.is-open').should('be.visible');
+        cy.get('.offcanvas.is-open').should('be.visible');
         cy.get('.cart-item-label').contains(product.name);
 
         // Checkout
@@ -57,7 +52,7 @@ describe('Home: Open home page', function () {
         if (Cypress.env('checkoutAllowed')) {
             cy.get('#confirmFormSubmit').scrollIntoView();
             cy.get('#confirmFormSubmit').click();
-            cy.get('.finish-header').contains('Thank you for your order with Shopware Storefront!');
+            cy.get('.finish-header').contains('Thank you for your order with');
         }
     });
     after(function () {

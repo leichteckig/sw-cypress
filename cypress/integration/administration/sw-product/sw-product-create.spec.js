@@ -19,30 +19,14 @@ describe('Product: Create with image', () => {
         });
         cy.get('a[href="#/sw/product/create"]').click();
         cy.get('input[name=sw-field--product-name]').typeAndCheck('Product with file upload image');
-        cy.get('.sw-select-product__select_manufacturer').typeSwSelectAndCheck(
-            'shopware AG',
-            {
-                searchTerm: 'shopware AG',
-                isMulti: false,
-                clearField: false
-            }
-        );
-        cy.get('.sw-product-detail__select-category').typeSwSelectAndCheck(
-            'MainCategory',
-            {
-                searchTerm: 'MainCategory',
-                isMulti: true,
-                clearField: false
-            }
-        );
         cy.get('select[name=sw-field--product-taxId]').select('19%');
-        cy.get('input[name=sw-field--price-gross]').typeAndCheck('99');
+        cy.get('#sw-price-field-gross').typeAndCheck('99');
         cy.get('input[name=sw-field--product-stock]').typeAndCheck('100');
 
         cy.get('.sw-media-upload__switch-mode').click();
         cy.get('input[name=sw-field--url]').type(`${Cypress.config('baseUrl')}/bundles/administration/static/fixtures/sw-login-background.png`);
         cy.get('.sw-media-url-form__submit-button').click();
-        cy.awaitAndCheckNotification('A file has been saved successfully.');
+        cy.awaitAndCheckNotification('File has been saved.');
 
         cy.get('.sw-media-preview__item').invoke('attr', 'src').should('contain', 'sw-login-background');
         cy.get(page.elements.productSaveAction).click();
