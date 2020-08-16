@@ -24,6 +24,9 @@
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
+// Require test suite commons
+require('@shopware-ag/e2e-testsuite-platform/cypress/support');
+
 /**
  * Uploads a file to an input
  * @memberOf Cypress.Chainable#
@@ -33,7 +36,7 @@
  */
 Cypress.Commands.add("login", (userType) => {
     cy.server();
-    cy.route('api/v1/*').as('getApi');
+    cy.route('api/v2/*').as('getApi');
     const types = {
         admin: {
             name: 'admin',

@@ -46,7 +46,7 @@ Cypress.Commands.add('storefrontApiRequest', (method, endpoint, header = {}, bod
                 ...body
             },
             method: method,
-            url: `/sales-channel-api/v1/${endpoint}`,
+            url: `/sales-channel-api/v2/${endpoint}`,
         };
 
         return cy.request(requestConfig).then((result) => {
@@ -64,7 +64,8 @@ Cypress.Commands.add('storefrontApiRequest', (method, endpoint, header = {}, bod
 Cypress.Commands.add('getRandomProductInformationForCheckout', () => {
     var sample = require('lodash.sample');
     return cy.storefrontApiRequest('GET', 'product').then((result) => {
-        const randomProduct = sample(result);
+       // const randomProduct = sample(result);
+       const randomProduct = Cypress._.sample(result);
 
         return {
             id: randomProduct.id,
