@@ -2,7 +2,7 @@
   "viewportHeight": 1080,
   "viewportWidth": 1920,
   "baseUrl": "http://docker.vm:8000",
-  "watchForFileChanges": false,
+  "watchForFileChanges": true,
   "requestTimeout": 10000,
   "defaultCommandTimeout": 10000,
   "salesChannelName": "Storefront",
@@ -15,6 +15,7 @@
     "salesChannelName": "Storefront",
     "admin": "/admin",
     "apiPath": "/api/v2",
+    "apiVersion": "v2",
     "locale": "en-GB",
     "checkoutAllowed": false
   }
