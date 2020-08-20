@@ -1,16 +1,21 @@
-// / <reference types="Cypress" />
+/// <reference types="Cypress" />
 
 describe('Administration: Check module navigation', () => {
     beforeEach(() => {
-        cy.setLocaleToEnGb().then(() => {
-            return cy.loginViaApi();
-        });
+        // Clean previous state and prepare Administration
+        cy.loginViaApi()
+            .then(() => {
+                cy.setLocaleToEnGb();
+            })
+            .then(() => {
+                cy.openInitialPage(Cypress.env('admin'));
+            });
     });
 
-    it('@package @general: navigate to category module', () => {
+    it('@base @navigation: navigate to category module', () => {
         cy.server();
         cy.route({
-            url: '/api/v1/search/category',
+            url: `${Cypress.env('apiPath')}/search/category`,
             method: 'post'
         }).as('getData');
 
@@ -25,10 +30,10 @@ describe('Administration: Check module navigation', () => {
         cy.get('.sw-category-tree').should('be.visible');
     });
 
-    it('@package @general: navigate to product module', () => {
+    it('@base @navigation: navigate to product module', () => {
         cy.server();
         cy.route({
-            url: '/api/v1/search/product',
+            url: `${Cypress.env('apiPath')}/search/product`,
             method: 'post'
         }).as('getData');
 
@@ -43,10 +48,28 @@ describe('Administration: Check module navigation', () => {
         cy.get('.sw-product-list__content').should('be.visible');
     });
 
-    it('@package @general: navigate to manufacturer module', () => {
+    it('@base @navigation: navigate to review module', () => {
         cy.server();
         cy.route({
-            url: '/api/v1/search/product-manufacturer',
+            url: `${Cypress.env('apiPath')}/search/product-review`,
+            method: 'post'
+        }).as('getData');
+
+        cy.clickMainMenuItem({
+            targetPath: '#/sw/review/index',
+            mainMenuId: 'sw-catalogue',
+            subMenuId: 'sw-review'
+        });
+        cy.wait('@getData').then((xhr) => {
+            expect(xhr).to.have.property('status', 200);
+        });
+        cy.get('.sw-review-list').should('be.visible');
+    });
+
+    it('@base @navigation: navigate to manufacturer module', () => {
+        cy.server();
+        cy.route({
+            url: `${Cypress.env('apiPath')}/search/product-manufacturer`,
             method: 'post'
         }).as('getData');
 
@@ -61,10 +84,10 @@ describe('Administration: Check module navigation', () => {
         cy.get('.sw-manufacturer-list__content').should('exist');
     });
 
-    it('@package @general: navigate to property module', () => {
+    it('@base @navigation: navigate to property module', () => {
         cy.server();
         cy.route({
-            url: '/api/v1/search/property-group',
+            url: `${Cypress.env('apiPath')}/search/property-group`,
             method: 'post'
         }).as('getData');
 
@@ -79,10 +102,10 @@ describe('Administration: Check module navigation', () => {
         cy.get('.sw-property-list__content').should('exist');
     });
 
-    it('@package @general: navigate to customer module', () => {
+    it('@base @navigation: navigate to customer module', () => {
         cy.server();
         cy.route({
-            url: '/api/v1/search/customer',
+            url: `${Cypress.env('apiPath')}/search/customer`,
             method: 'post'
         }).as('getData');
 
@@ -96,10 +119,10 @@ describe('Administration: Check module navigation', () => {
         cy.get('.sw-customer-list__content').should('be.visible');
     });
 
-    it('@package @general: navigate to order module', () => {
+    it('@base @navigation: navigate to order module', () => {
         cy.server();
         cy.route({
-            url: '/api/v1/search/order',
+            url: `${Cypress.env('apiPath')}/search/order`,
             method: 'post'
         }).as('getData');
 
@@ -113,10 +136,10 @@ describe('Administration: Check module navigation', () => {
         cy.get('.sw-order-list').should('be.visible');
     });
 
-    it('@package @general: navigate to media module', () => {
+    it('@base @navigation: navigate to media module', () => {
         cy.server();
         cy.route({
-            url: '/api/v1/search/media',
+            url: `${Cypress.env('apiPath')}/search/media`,
             method: 'post'
         }).as('getData');
 
@@ -131,10 +154,10 @@ describe('Administration: Check module navigation', () => {
         cy.get('.sw-media-index__page-content').should('be.visible');
     });
 
-    it('@package @general: navigate to cms module', () => {
+    it('@base @navigation: navigate to cms module', () => {
         cy.server();
         cy.route({
-            url: '/api/v1/search/cms-page',
+            url: `${Cypress.env('apiPath')}/search/cms-page`,
             method: 'post'
         }).as('getData');
 
@@ -149,10 +172,10 @@ describe('Administration: Check module navigation', () => {
         cy.get('.sw-cms-list').should('be.visible');
     });
 
-    it('@package @general: navigate to theme module', () => {
+    it('@base @navigation: navigate to theme module', () => {
         cy.server();
         cy.route({
-            url: '/api/v1/search/theme',
+            url: `${Cypress.env('apiPath')}/search/theme`,
             method: 'post'
         }).as('getData');
 
@@ -167,10 +190,10 @@ describe('Administration: Check module navigation', () => {
         cy.get('.sw-theme-list__list').should('be.visible');
     });
 
-    it('@package @general: navigate to promotion module', () => {
+    it('@base @navigation: navigate to promotion module', () => {
         cy.server();
         cy.route({
-            url: '/api/v1/search/promotion',
+            url: `${Cypress.env('apiPath')}/search/promotion`,
             method: 'post'
         }).as('getData');
 
@@ -185,10 +208,10 @@ describe('Administration: Check module navigation', () => {
         cy.get('.sw-promotion-list').should('be.visible');
     });
 
-    it('@package @general: navigate to newsletter recipients module', () => {
+    it('@navigation: navigate to newsletter recipients module', () => {
         cy.server();
         cy.route({
-            url: '/api/v1/search/newsletter-recipient',
+            url: `${Cypress.env('apiPath')}/search/newsletter-recipient`,
             method: 'post'
         }).as('getData');
 

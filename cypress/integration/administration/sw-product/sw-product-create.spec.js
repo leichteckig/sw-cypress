@@ -6,6 +6,8 @@ describe('Product: Create with image', () => {
             return cy.loginViaApi();
         }).then(() => {
             return cy.createDefaultFixture('category');
+        }).then(() => {
+            cy.visit('/admin');
         });
     });
 
@@ -19,16 +21,10 @@ describe('Product: Create with image', () => {
         });
         cy.get('a[href="#/sw/product/create"]').click();
         cy.get('input[name=sw-field--product-name]').typeAndCheck('Product with file upload image');
-        cy.get('select[name=sw-field--product-taxId]').select('19%');
+        cy.get('select[name=sw-field--product-taxId]').select('Standard rate');
         cy.get('#sw-price-field-gross').typeAndCheck('99');
         cy.get('input[name=sw-field--product-stock]').typeAndCheck('100');
 
-        cy.get('.sw-media-upload__switch-mode').click();
-        cy.get('input[name=sw-field--url]').type(`${Cypress.config('baseUrl')}/bundles/administration/static/fixtures/sw-login-background.png`);
-        cy.get('.sw-media-url-form__submit-button').click();
-        cy.awaitAndCheckNotification('File has been saved.');
-
-        cy.get('.sw-media-preview__item').invoke('attr', 'src').should('contain', 'sw-login-background');
         cy.get(page.elements.productSaveAction).click();
         cy.get(page.elements.loader).should('not.exist');
         cy.get(page.elements.successIcon).should('be.visible');
@@ -42,10 +38,6 @@ describe('Product: Create with image', () => {
     afterEach(() => {
         return cy.removeFixtureByName('MainCategory', 'category').then(() => {
             return cy.removeFixtureByName('Product with file upload image', 'product');
-        }).then(() => {
-            return cy.removeFixtureByName('sw-login-background', 'media', {
-                identifier: 'fileName'
-            });
         });
     });
 });

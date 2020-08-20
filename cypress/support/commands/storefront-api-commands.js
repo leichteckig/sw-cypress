@@ -20,6 +20,7 @@ Cypress.Commands.add('getSalesChannelId', () => {
         };
 
         return cy.searchViaAdminApi(parameters).then((data) => {
+            console.log('sales channel data', data)
             return data.attributes.accessKey;
         });
     });
@@ -46,10 +47,12 @@ Cypress.Commands.add('storefrontApiRequest', (method, endpoint, header = {}, bod
                 ...body
             },
             method: method,
-            url: `/sales-channel-api/v1/${endpoint}`,
+            url: `/sales-channel-api/v3/${endpoint}?response=true`,
         };
 
         return cy.request(requestConfig).then((result) => {
+            console.log('requestConfig', requestConfig)
+            console.log('result', result)
             return result.body.data;
         });
     })
@@ -64,13 +67,13 @@ Cypress.Commands.add('storefrontApiRequest', (method, endpoint, header = {}, bod
 Cypress.Commands.add('getRandomProductInformationForCheckout', () => {
     var sample = require('lodash.sample');
     return cy.storefrontApiRequest('GET', 'product').then((result) => {
-        const randomProduct = sample(result);
+       // const randomProduct = sample(result);
+       const randomProduct = Cypress._.sample(result);
+        console.log(randomProduct)
 
         return {
             id: randomProduct.id,
             name: randomProduct.name,
-            net: randomProduct.price.net,
-            gross: randomProduct.price.gross,
             listingPrice: randomProduct.calculatedListingPrice.unitPrice,
             url: `/detail/${randomProduct.id}`
         }

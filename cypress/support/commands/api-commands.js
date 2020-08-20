@@ -43,7 +43,7 @@ Cypress.Commands.add("setLocaleToEnGb", () => {
  * @name loginViaApi
  * @function
  */
-Cypress.Commands.add("loginViaApi", () => {
+Cypress.Commands.add("loginViaApiLegacy", () => {
     return cy.authenticate().then((result) => {
         return cy.window().then((win) => {
             win.localStorage.setItem('bearerAuth', JSON.stringify(result));
